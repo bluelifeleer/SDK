@@ -9,7 +9,6 @@ $config['db']['passwd'] = 'koolma2010';
 $config['db']['db_name'] = 'huihe_marketing_system';
 $config['db']['port'] = 3306;
 
-
 /**
  * baidu BES configtions
  */
@@ -34,15 +33,14 @@ $config['bes'] = [
 			'getTradeModified' => 'https://api.es.baidu.com/v1/creative/getTradeModified',
 			'dynamicGetAll' => 'https://api.es.baidu.com/v1/creative/dynamic/getAll',
 			'preview' => 'https://api.es.baidu.com/v1/website/creative/preview',
-			
 		],
-		'report' = [
+		'report' => [
 			'rtb' => 'https://api.es.baidu.com/v1/report/rtb',
 			'consume' => 'https://api.es.baidu.com/v1/report/consume',
 			'advertiser' => 'https://api.es.baidu.com/v1/report/advertiser',
 			'creativeRTB' => 'https://api.es.baidu.com/v1/report/creativeRTB',
 		],
-		'cookie' = [
+		'cookie' => [
 			'add' => 'https://api.es.baidu.com/v1/viewconfig/cookie/batch/add',
 			'del' => 'https://api.es.baidu.com/v1/viewconfig/cookie/batch/del',
 		],
@@ -80,7 +78,6 @@ $config['tanx'] = [
 		],
 	],
 ];
-
 
 /**
  * ValueMask configtions
