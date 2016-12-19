@@ -170,4 +170,12 @@ class MySqliDB extends mysqli {
 	public function affected_rows() {
 		return $this->affected_rows;
 	}
+
+
+	/**
+	 * 关闭数据库连接
+	 */
+	public function __destruct(){
+		self::close();
+	}
 }
