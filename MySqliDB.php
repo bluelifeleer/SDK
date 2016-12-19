@@ -62,23 +62,23 @@ class MySqliDB extends mysqli {
 	/**
 	 * 设置from语句
 	 */
-	public function from($table){
-		$this->from = ' FROM '.table;
+	public function from($table) {
+		$this->from = ' FROM ' . table;
 	}
 
 	/**
 	 * 设置where语句
 	 * @return [type] [description]
 	 */
-	public function where(){
-		if(func_num_args() == 2){
-			$this->where = ' WHERE '.func_get_arg(1).'='.func_get_arg(2);
-		}else{
+	public function where() {
+		if (func_num_args() == 2) {
+			$this->where = ' WHERE ' . func_get_arg(1) . '=' . func_get_arg(2);
+		} else {
 			$tmp = '';
-			foreach(func_get_arg(1) AS $key => $value){
-				$tmp .= sprintf('%s=%s,',$key , $value),
+			foreach (func_get_arg(1) AS $key => $value) {
+				$tmp .= sprintf('%s=%s,', $key, $value);
 			}
-			$this->where = mb_substr($tmp, 0, intval(strlen($tmp)-1));
+			$this->where = mb_substr($tmp, 0, intval(strlen($tmp) - 1));
 		}
 	}
 
@@ -88,15 +88,15 @@ class MySqliDB extends mysqli {
 	 * @param  [type] $value [description]
 	 * @return [type]        [description]
 	 */
-	public function like($key,$value){
-		$this->like = $key.' LIKE "%'.$value.'%"';
+	public function like($key, $value) {
+		$this->like = $key . ' LIKE "%' . $value . '%"';
 	}
 
 	/**
-	 * 设置数据 
+	 * 设置数据
 	 * @param array $data [description]
 	 */
-	public function set($data = array()){
+	public function set($data = array()) {
 		$this->data = $data;
 	}
 
@@ -105,14 +105,14 @@ class MySqliDB extends mysqli {
 	 * @param  array  $data [description]
 	 * @return [type]       [description]
 	 */
-	public function update($data = array()){
+	public function update($data = array()) {
 		$tmp = '';
-		foreach($this->data AS $key => $value){
-			$tmp .= sprintf('%s=%s,',$key,$value);
+		foreach ($this->data AS $key => $value) {
+			$tmp .= sprintf('%s=%s,', $key, $value);
 		}
-		$this->sql = 'UPDATE '.$this->table.' SET '.mb_substr($tmp, 0, intval(strlen($tmp)-1));
+		$this->sql = 'UPDATE ' . $this->table . ' SET ' . mb_substr($tmp, 0, intval(strlen($tmp) - 1));
 		$this->status = self::query($this->sql);
-		return $this->status ? true : false ;
+		return $this->status ? true : false;
 	}
 
 	/**
@@ -120,16 +120,16 @@ class MySqliDB extends mysqli {
 	 * @param  array  $data [description]
 	 * @return [type]       [description]
 	 */
-	public function insert($data = array()){
+	public function insert($data = array()) {
 		$field = array();
 		$values = array();
-		foreach($this->data AS $key => $value){
+		foreach ($this->data AS $key => $value) {
 			array_push($field, $key);
 			array_push($values, $value);
 		}
-		$this->sql = 'INSERT INTO '.$this->table.'('.join(',',$field).') VALUES ('.join(',',$values).')';
+		$this->sql = 'INSERT INTO ' . $this->table . '(' . join(',', $field) . ') VALUES (' . join(',', $values) . ')';
 		$this->status = self::query($this->sql);
-		return $this->status ? true : false ;
+		return $this->status ? true : false;
 	}
 
 	/**
@@ -145,8 +145,8 @@ class MySqliDB extends mysqli {
 	 * 将查询结果以关联数组形式返回
 	 * @return [type] [description]
 	 */
-	public function array_result(){
-		return $this->num_rows() && $this->num_rows() > 0 ? $this->result->fetch_all(MYSQLI_ASSOC) : array() ;
+	public function array_result() {
+		return $this->num_rows() && $this->num_rows() > 0 ? $this->result->fetch_all(MYSQLI_ASSOC) : array();
 	}
 
 	/**
@@ -171,11 +171,10 @@ class MySqliDB extends mysqli {
 		return $this->affected_rows;
 	}
 
-
 	/**
 	 * 关闭数据库连接
 	 */
-	public function __destruct(){
+	public function __destruct() {
 		self::close();
 	}
 }

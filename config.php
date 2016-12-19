@@ -9,6 +9,19 @@ $config['db']['passwd'] = 'koolma2010';
 $config['db']['db_name'] = 'huihe_marketing_system';
 $config['db']['port'] = 3306;
 
+$config['ver'] = [
+	'version' => '1.0',
+	'author' => 'bluelife',
+	'email' => 'thebulelife@outlook.com',
+	'phone' => '15167167331',
+	'add_time' => '2016-12-16',
+	'modify_version' => '1.1',
+	'modify_author' => 'bluelife',
+	'modify_email' => 'thebulelife@outlook.com',
+	'modify_phone' => '15167167331',
+	'modify_add_time' => '2016-12-19',
+];
+
 /**
  * baidu BES configtions
  */

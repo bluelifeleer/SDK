@@ -3,7 +3,7 @@
 class AutoLoad {
 	private $require_files;
 	public function __construct() {
-		$this->require_files = array('MySqliDB', 'exception', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
+		$this->require_files = array('Curl.php', 'Write', 'MySqliDB', 'exception', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
 	}
 
 	public function AutoLoading() {
