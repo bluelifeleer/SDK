@@ -26,11 +26,11 @@ class Mixer {
 		$this->db = new MySqliDB($this->conf['db']['host'], $this->conf['db']['user'], $this->conf['db']['passwd'], $this->conf['db']['db_name'], $this->conf['db']['port']);
 		$this->curl = new Curl();
 		$this->write = new Write();
-		$this->valueMake = new ValueMake();
-		$this->adinall = new Adinall();
-		$this->bes = new BaiDuBES();
-		$this->tanx = new Tanx();
-		$this->miaozhen = new MiaoZhen();
+		$this->valueMake = new ValueMake($this->curl, $this->conf['vm']);
+		$this->adinall = new Adinall($this->curl, $this->conf['adinall']);
+		$this->bes = new BaiDuBES($this->curl, $this->conf['bes']);
+		$this->tanx = new Tanx($this->curl, $this->conf['tanx']);
+		$this->miaozhen = new MiaoZhen($this->curl, $this->conf['mz']);
 	}
 
 	public function get_db() {

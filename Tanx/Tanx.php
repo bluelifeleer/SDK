@@ -9,7 +9,10 @@
  * |-----------------------------------------------------------------------------
  */
 class Tanx {
-	public function __construct() {
-
+	private $curl;
+	private $conf;
+	public function __construct($curl, $conf) {
+		$this->curl = $curl;
+		$this->conf = $conf;
 	}
 }

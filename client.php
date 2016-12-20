@@ -28,7 +28,12 @@ class Client extends Mixer {
 	}
 
 	public function get_dbs() {
-		$this->get_db();
+		// $this->get_db();
+		//
+		// var_dump(strpos(__DIR__, '\\') === FALSE ? __DIR__ : str_replace('\\', '/', __DIR__));
+		//
+		var_dump(dirname(__FILE__) . DIRECTORY_SEPARATOR);
+		// var_dump(__FILE__);
 	}
 
 	public function get() {
@@ -37,5 +42,5 @@ class Client extends Mixer {
 }
 
 $Client = new Client($config);
-$Client->version();
+// $Client->version();
 $Client->get_dbs();

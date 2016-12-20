@@ -20,14 +20,14 @@ class Curl {
 		$this->curl = curl_init();
 	}
 
-	public function get($header, $http) {
+	public function get() {
 
 		// var_dump($header);
 		// var_dump($http);
 		// exit;
 
-		curl_setopt($this->curl, CURLOPT_URL, $http);
-		is_array($header) && !empty($header) ? curl_setopt($this->curl, CURLOPT_HTTPHEADER, $header) : null;
+		curl_setopt($this->curl, CURLOPT_URL, $this->http);
+		is_array($this->header) && !empty($this->header) ? curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->header) : null;
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($this->curl, CURLOPT_HEADER, 0);
 		$response = curl_exec($this->curl);
@@ -49,11 +49,11 @@ class Curl {
 		// var_dump($data);
 		// exit;
 
-		curl_setopt($this->curl, CURLOPT_URL, $http);
-		is_array($header) && !empty($header) ? curl_setopt($this->curl, CURLOPT_HTTPHEADER, $header) : null;
+		curl_setopt();
+		is_array($this->header) && !empty($this->header) ? curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->header) : null;
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($this->curl, CURLOPT_POST, 1);
-		curl_setopt($this->curl, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
 		$response = curl_exec($this->curl);
 		$status = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 		curl_close($this->curl);

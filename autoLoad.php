@@ -1,16 +1,23 @@
 <?php
 
 class AutoLoad {
+	private $path;
 	private $require_files;
 	public function __construct() {
-		$this->require_files = array('Curl.php', 'Write', 'MySqliDB', 'exception', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
+		// $this->require_files = array('Curl', 'Write', 'MySqliDB', 'exception', 'Adinall' . DIRECTORY_SEPARATOR . 'Adinall', 'BaiDuBES' . DIRECTORY_SEPARATOR . 'BaiDuBES', 'MiaoZhen' . DIRECTORY_SEPARATOR . 'MiaoZhen', 'Tanx' . DIRECTORY_SEPARATOR . 'Tanx', 'ValueMake' . DIRECTORY_SEPARATOR . 'ValueMake');
+		$this->require_files = array('Curl', 'Write', 'MySqliDB', 'exception', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
 	}
 
 	public function AutoLoading() {
 		foreach ($this->require_files AS $key => $value) {
 			if ($value && !empty($value)) {
-				require_once './' . $value . '.php';
-				echo 'loading ' . $value . '.php success .' . PHP_EOL;
+				// Can`t usr __DIR__ as it`s only in PHP 5.3+
+				// 根据系统确定使用什么分隔符
+				// $this->path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+				// 强制转换成‘/’做为分隔符
+				$this->path = strpos(dirname(__FILE__), '\\') === FALSE ? __DIR__ : str_replace('\\', '/', __DIR__);
+				require_once $this->path . '/' . $value . '.php';
+				echo 'loading ' . $this->path . '/' . $value . '.php success .' . PHP_EOL;
 			} else {
 				continue;
 			}
