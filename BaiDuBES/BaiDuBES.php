@@ -9,6 +9,9 @@
  * |-----------------------------------------------------------------------------
  */
 class BaiDuBES {
+	private $header;
+	private $http;
+	private $request;
 	private $curl;
 	private $conf;
 	private $advertiserId;
@@ -19,7 +22,11 @@ class BaiDuBES {
 	private $telephone;
 	private $address;
 	private $isWhiteUser;
+	private $startDate;
+	private $endDate;
+	private $id;
 	private $request;
+	private $data;
 	public function __construct($curl, $conf) {
 		$this->curl = $curl;
 		$this->conf = $conf;
@@ -94,20 +101,147 @@ class BaiDuBES {
 	public function isWhiteUser($isWhiteUser){
 		$this->isWhiteUser = $isWhiteUser;
 	}
+	
+	/**
+	 * 设置查询开始时间
+	 * @param  [type] $timer [统计开始时间格式参考：2013-08-01]
+	 * @return [type]        [description]
+	 */
+	public function startDate($timer){
+		$this->startDate = $timer;
+	}
 
+	/**
+	 * 设置查询结束时间
+	 * @param  [type] $timer [统计结束时间格式参考：2013-08-01]
+	 * @return [type]        [description]
+	 */
+	public function endDate($timer){
+		$this->endDate = $timer;
+	}
+
+	/**
+	 * 设置查询广告主的id
+	 * @param  [type] $id [string|array]
+	 * @return [type]     [description]
+	 */
+	public function id($id){
+		$this->id = $id;
+	}
+
+	/**
+	 * 添加广告主
+	 * @return [type] [description]
+	 */
 	public function advertiserAdd(){
+		$this->http = $this->conf['api_https']['advertisers']['add'];
+		$this->header = array('Content-Type:application/json');
 		$this->request = array(
 			'authHeader' => array(
-				'dspId' => ,
-				'token' => ,
+				'dspId' => $this->conf['dspId'],
+				'token' => $this->conf['token'],
 			),
-			'request' => array(
-				'' => ,
-				'' => ,
-				'' => ,
-				'' => ,
-				'' => ,
+			'request' => array($this->data),
+		);
+	}
+
+	/**
+	 * 更新广告主信息
+	 * @return [type] [description]
+	 */
+	public function advertiserUpdate(){
+		$this->http = $this->conf['api_https']['advertisers']['update'];
+		$this->header = array('Content-Type:application/json');
+		$this->request = array(
+			'authHeader' => array(
+				'dspId' => $this->conf['dspId'],
+				'token' => $this->conf['token'],
 			),
+			'request' => array($this->data),
+		);
+	}
+
+	/**
+	 * 获取指定时间段内上传的广告主信息
+	 * @return [type] [description]
+	 */
+	public function advertiserGetAll(){
+		$this->http = $this->conf['api_https']['advertisers']['getAll'];
+		$this->header = array('Content-Type:application/json');
+		$this->request = array(
+			'authHeader' => array(
+				'dspId' => $this->conf['dspId'],
+				'token' => $this->conf['token'],
+			),
+			'startDate' => $this->startDate,
+			'endDate' => $this->endDate,
+		);
+	}
+
+	/**
+	 * 查询指定ID的广告主信息
+	 * @return [type] [description]
+	 */
+	public function advertiserGet(){
+		$this->http = $this->conf['api_https']['advertisers']['get'];
+		$this->header = array('Content-Type:application/json');
+		$this->request = array(
+			'authHeader' => array(
+				'dspId' => $this->conf['dspId'],
+				'token' => $this->conf['token'],
+			),
+			'advertiserIds' => array($this->id),
+		);
+	}
+
+	/**
+	 * 查询指定广告主的审核状态
+	 * @return [type] [description]
+	 */
+	public function advertiserQueryQualification(){
+		$this->http = $this->conf['api_https']['advertisers']['queryQualification'];
+		$this->header = array('Content-Type:application/json');
+		$this->request = array(
+			'authHeader' => array(
+				'dspId' => $this->conf['dspId'],
+				'token' => $this->conf['token'],
+			),
+			'advertiserIds' => array($this->id),
+		);
+	}
+
+	/**
+	 * 添加创意
+	 * @return [type] [description]
+	 */
+	public function creativeAdd(){
+		
+	}
+
+	/**
+	 * 执行操作
+	 * @return [type] [description]
+	 */
+	public function exec(){
+		$this->curl->http = $this->http;
+		$this->curl->header = $this->header;
+		$this->curl->data = json_encode($this->request);
+		$this->curl->post();
+	}
+
+	/**
+	 * 格式化数据
+	 * @return [type] [description]
+	 */
+	public function foramtData(){
+		$this->data = array(
+			'advertiserId' => ,
+			'advertiserLiteName' => ,
+			'dvertiserName' => ,
+			'siteName' => ,
+			'siteUrl' => ,
+			'telephone' => ,
+			'address' => ,
 		);
 	}
 }
