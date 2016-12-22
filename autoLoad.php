@@ -1,11 +1,19 @@
 <?php
-
+/**
+ * |-----------------------------------------------------------------------------
+ * | AutoLoad Class
+ * |-----------------------------------------------------------------------------
+ * | Author bluelife
+ * | Email thebulelife@outlook.com
+ * | Date 2016-12-16
+ * |-----------------------------------------------------------------------------
+ */
 class AutoLoad {
 	private $path;
 	private $require_files;
 	public function __construct() {
-		// $this->require_files = array('Curl', 'Write', 'MySqliDB', 'exception', 'Adinall' . DIRECTORY_SEPARATOR . 'Adinall', 'BaiDuBES' . DIRECTORY_SEPARATOR . 'BaiDuBES', 'MiaoZhen' . DIRECTORY_SEPARATOR . 'MiaoZhen', 'Tanx' . DIRECTORY_SEPARATOR . 'Tanx', 'ValueMake' . DIRECTORY_SEPARATOR . 'ValueMake');
-		$this->require_files = array('Curl', 'Write', 'MySqliDB', 'exception', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
+		// $this->require_files = array('Curl', 'Write', 'MySqliDB', 'SDKException', 'Adinall' . DIRECTORY_SEPARATOR . 'Adinall', 'BaiDuBES' . DIRECTORY_SEPARATOR . 'BaiDuBES', 'MiaoZhen' . DIRECTORY_SEPARATOR . 'MiaoZhen', 'Tanx' . DIRECTORY_SEPARATOR . 'Tanx', 'ValueMake' . DIRECTORY_SEPARATOR . 'ValueMake');
+		$this->require_files = array('Curl', 'Write', 'MySqliDB', 'SDKException', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
 	}
 
 	public function AutoLoading() {
