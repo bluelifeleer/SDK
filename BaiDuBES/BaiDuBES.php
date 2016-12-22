@@ -591,13 +591,13 @@ class BaiDuBES {
 	 */
 	public function foramtData($type = 'advertisers'){
 		$this->data = $type == 'advertisers'? array(//上传广告主
-			'advertiserId' => ,
-			'advertiserLiteName' => ,
-			'dvertiserName' => ,
-			'siteName' => ,
-			'siteUrl' => ,
-			'telephone' => ,
-			'address' => ,
+			'advertiserId' => $this->advertiserId,
+			'advertiserLiteName' => $this->advertiserLiteName,
+			'dvertiserName' => $this->dvertiserName,
+			'siteName' => $this->siteName,
+			'siteUrl' => $this->siteUrl,
+			'telephone' => $this->telephone,
+			'address' => $this->address,
 		) : array(//上传创意
 			'creativeId' => $this->creativeId, //创意id，[true]
 			'adviewType' => $this->adviewType,	//流量类型,1：Web 流量2：Mobile 流量3：Video 流量,[false]
