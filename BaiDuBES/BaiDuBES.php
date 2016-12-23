@@ -12,6 +12,7 @@ class BaiDuBES {
 	private $header;
 	private $http;
 	private $request;
+	private $response;
 	private $curl;
 	private $conf;
 	private $advertiserId;
@@ -582,7 +583,7 @@ class BaiDuBES {
 		$this->curl->http = $this->http;
 		$this->curl->header = $this->header;
 		$this->curl->data = json_encode($this->request);
-		$this->curl->post();
+		$this->response = $this->curl->post();
 	}
 
 	/**

@@ -42,7 +42,7 @@ class Curl {
 		exit;
 	}
 
-	public function post($header, $http, $data) {
+	public function post() {
 
 		// var_dump($header);
 		// var_dump($http);
