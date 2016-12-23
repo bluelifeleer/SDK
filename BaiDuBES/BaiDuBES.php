@@ -13,6 +13,7 @@ class BaiDuBES {
 	private $http;
 	private $request;
 	private $response;
+	private $data;
 	private $curl;
 	private $conf;
 	private $advertiserId;
@@ -37,7 +38,6 @@ class BaiDuBES {
 	private $height;
 	private $width;
 	private $creativeTradeId;
-	private $advertiserId;
 	private $frameAgreementNo;
 	private $interactiveStyle;
 	private $telNo;
@@ -50,8 +50,6 @@ class BaiDuBES {
 	private $domain;
 	private $playTimeMonitorUrl;
 
-	private $request;
-	private $data;
 	public function __construct($curl, $conf) {
 		$this->curl = $curl;
 		$this->conf = $conf;
@@ -62,7 +60,7 @@ class BaiDuBES {
 	 * @param  [member] $advertiserId [description]
 	 * @return [type]               [description]
 	 */
-	public function advertiserId($advertiserId){
+	public function advertiserId($advertiserId) {
 		$this->advertiserId = $advertiserId;
 	}
 	/**
@@ -70,7 +68,7 @@ class BaiDuBES {
 	 * @param  [string] $advertiserLiteName [description]
 	 * @return [type]                     [description]
 	 */
-	public function advertiserLiteName($advertiserLiteName){
+	public function advertiserLiteName($advertiserLiteName) {
 		$this->advertiserLiteName = $advertiserLiteName;
 	}
 	/**
@@ -78,7 +76,7 @@ class BaiDuBES {
 	 * @param  [string] $advertiserName [description]
 	 * @return [type]                 [description]
 	 */
-	public function advertiserName($advertiserName){
+	public function advertiserName($advertiserName) {
 		$this->advertiserName = $advertiserName;
 	}
 
@@ -87,7 +85,7 @@ class BaiDuBES {
 	 * @param  [string] $siteName [description]
 	 * @return [type]           [description]
 	 */
-	public function siteName($siteName){
+	public function siteName($siteName) {
 		$this->siteName = $siteName;
 	}
 
@@ -96,7 +94,7 @@ class BaiDuBES {
 	 * @param  [string] $siteUrl [description]
 	 * @return [type]          [description]
 	 */
-	public function siteUrl($siteUrl){
+	public function siteUrl($siteUrl) {
 		$this->siteUrl = $siteUrl;
 	}
 
@@ -105,7 +103,7 @@ class BaiDuBES {
 	 * @param  [string] $telephone [description]
 	 * @return [type]            [description]
 	 */
-	public function telephone($telephone){
+	public function telephone($telephone) {
 		$this->telephone = $telephone;
 	}
 
@@ -114,7 +112,7 @@ class BaiDuBES {
 	 * @param  [string] $address [description]
 	 * @return [type]          [description]
 	 */
-	public function address($address){
+	public function address($address) {
 		$this->address = $address;
 	}
 
@@ -123,16 +121,16 @@ class BaiDuBES {
 	 * @param  [type]  $isWhiteUser [description]
 	 * @return boolean              [description]
 	 */
-	public function isWhiteUser($isWhiteUser){
+	public function isWhiteUser($isWhiteUser) {
 		$this->isWhiteUser = $isWhiteUser;
 	}
-	
+
 	/**
 	 * 设置查询开始时间
 	 * @param  [type] $timer [统计开始时间格式参考：2013-08-01]
 	 * @return [type]        [description]
 	 */
-	public function startDate($timer){
+	public function startDate($timer) {
 		$this->startDate = $timer;
 	}
 
@@ -141,7 +139,7 @@ class BaiDuBES {
 	 * @param  [type] $timer [统计结束时间格式参考：2013-08-01]
 	 * @return [type]        [description]
 	 */
-	public function endDate($timer){
+	public function endDate($timer) {
 		$this->endDate = $timer;
 	}
 
@@ -150,7 +148,7 @@ class BaiDuBES {
 	 * @param  [string] $id [创意id  此id 为dsp系统的创意id，需唯一]
 	 * @return [type]     [description]
 	 */
-	public function creativeId($creativeId){
+	public function creativeId($creativeId) {
 		$this->creativeId = $creativeId;
 	}
 
@@ -159,7 +157,7 @@ class BaiDuBES {
 	 * @param  [inter] $adviewType [流量类型 否 1：Web 流量2：Mobile 流量3：Video 流量,默认为1；如果投Mobile 流量，该参数必须为2；如果投放Video流量，该参数必须为3；]
 	 * @return [type]             [description]
 	 */
-	public function adviewType($adviewType = 1){
+	public function adviewType($adviewType = 1) {
 		$this->adviewType = $adviewType;
 	}
 
@@ -168,7 +166,7 @@ class BaiDuBES {
 	 * @param  [integer] $type [类型 当adviewType 为2 时，该字段只能为1；当adviewType 为3时，该字段只能为3；1：图片2：flash3：视频]
 	 * @return [type]        [description]
 	 */
-	public function type($type = 1){
+	public function type($type = 1) {
 		$this->type = $type;
 	}
 
@@ -177,7 +175,7 @@ class BaiDuBES {
 	 * @param  [inter] $state [状态 N/A 该字段仅在调用get/getAll/queryAuditState 接口时由系统提供，定义如下：0：通过1：待检查2：检查拒绝]
 	 * @return [type]        [description]
 	 */
-	public function state($state){
+	public function state($state) {
 		$this->state = $state;
 	}
 
@@ -186,7 +184,7 @@ class BaiDuBES {
 	 * @param  [string] $creativeUrl [长度限制：2048 个字节大小限制：图片、flash 不大于150kURL 后缀限制：jpg|gif|swf，png格式类型的创意无法通过该种方式上传，请使用binaryData 字段进行该种类型图片的上传。注：API 会在后台访问创意的URL地址，抓取图片或者flash 创意。请确保URL 可连通并且可以通过HTTP 协议在万维网上访问到。]
 	 * @return [type]              [description]
 	 */
-	public function creativeUrl($creativeUrl){
+	public function creativeUrl($creativeUrl) {
 		$this->creativeUrl = $creativeUrl;
 	}
 
@@ -195,7 +193,7 @@ class BaiDuBES {
 	 * @param  [byte[]] $binaryData [大小限制：图片、flash 不大于150k当不存在creativeUrl 时，则选择使用binaryData 来上传创意，二者必须存在其一。binaryData 的处理优先级高于creativeUrl。]
 	 * @return [type]             [description]
 	 */
-	public function binaryData($binaryData){
+	public function binaryData($binaryData) {
 		$this->binaryData = $binaryData;
 	}
 
@@ -204,7 +202,7 @@ class BaiDuBES {
 	 * @param  [string] $targetUrl [当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；]
 	 * @return [type]            [description]
 	 */
-	public function targetUrl($targetUrl){
+	public function targetUrl($targetUrl) {
 		$this->targetUrl = $targetUrl;
 	}
 
@@ -213,7 +211,7 @@ class BaiDuBES {
 	 * @param  [string] $landingPage [当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；长度限制：2048 个字节]
 	 * @return [type]              [description]
 	 */
-	public function landingPage($landingPage){
+	public function landingPage($landingPage) {
 		$this->landingPage = $landingPage;
 	}
 
@@ -222,7 +220,7 @@ class BaiDuBES {
 	 * @param  [string[]] $monitorUrls [最多包含3 个链接每个链接长度限制：1024 个字节]
 	 * @return [type]              [description]
 	 */
-	public function monitorUrls($monitorUrls){
+	public function monitorUrls($monitorUrls) {
 		$this->monitorUrls = $monitorUrls;
 	}
 
@@ -231,7 +229,7 @@ class BaiDuBES {
 	 * @param  [inter] $height [当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；]
 	 * @return [type]         [description]
 	 */
-	public function height($height){
+	public function height($height) {
 		$this->height = $height;
 	}
 
@@ -240,7 +238,7 @@ class BaiDuBES {
 	 * @param  [inter] $width [当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；]
 	 * @return [type]        [description]
 	 */
-	public function width($width){
+	public function width($width) {
 		$this->width = $width;
 	}
 
@@ -249,7 +247,7 @@ class BaiDuBES {
 	 * @param  [inter] $creativeTradeId [注：必须指定到第2 级行业。广告行业体系见数据字典]
 	 * @return [type]                  [description]
 	 */
-	public function creativeTradeId($creativeTradeId){
+	public function creativeTradeId($creativeTradeId) {
 		$this->creativeTradeId = $creativeTradeId;
 	}
 
@@ -258,7 +256,7 @@ class BaiDuBES {
 	 * @param  [string] $frameAgreementNo [此处的框架id 指广告主与百度签署的框架协议id。如果广告主给出框架id 并且要求将在百度的投放计入框架，那么在上传创意的时候需要填写此字段。]
 	 * @return [type]                   [description]
 	 */
-	public function frameAgreementNo($frameAgreementNo){
+	public function frameAgreementNo($frameAgreementNo) {
 		$this->frameAgreementNo = $frameAgreementNo;
 	}
 
@@ -267,7 +265,7 @@ class BaiDuBES {
 	 * @param  [inter] $interactiveStyle [当adviewType 为2 时，该字段为必填；0：无1：电话直拨2：点击下载]
 	 * @return [type]                   [description]
 	 */
-	public function interactiveStyle($interactiveStyle = 0){
+	public function interactiveStyle($interactiveStyle = 0) {
 		$this->interactiveStyle = $interactiveStyle;
 	}
 
@@ -276,7 +274,7 @@ class BaiDuBES {
 	 * @param  [string] $telNo [当adviewType 为2 且interactiveStyle 为1 时，该字段为必填；电话号码须全为数字，如400 号、800 号、手机号、座机号等，例如]
 	 * @return [type]        [description]
 	 */
-	public function telNo($telNo){
+	public function telNo($telNo) {
 		$this->telNo = $telNo;
 	}
 
@@ -285,8 +283,8 @@ class BaiDuBES {
 	 * @param  [string] $downloadUrl [当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：2048 个字节]
 	 * @return [type]              [description]
 	 */
-	public function downloadUrl($downloadUrl){
-		$this->downloadUrl= $downloadUrl;
+	public function downloadUrl($downloadUrl) {
+		$this->downloadUrl = $downloadUrl;
 	}
 
 	/**
@@ -294,7 +292,7 @@ class BaiDuBES {
 	 * @param  [string] $appName [当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于28 个字符]
 	 * @return [type]          [description]
 	 */
-	public function appName($appName){
+	public function appName($appName) {
 		$this->appName = $appName;
 	}
 
@@ -303,7 +301,7 @@ class BaiDuBES {
 	 * @param  [string] $appDesc [当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于60 个字符]
 	 * @return [type]          [description]
 	 */
-	public function appDesc($appDesc){
+	public function appDesc($appDesc) {
 		$this->appDesc = $appDesc;
 	}
 
@@ -312,7 +310,7 @@ class BaiDuBES {
 	 * @param  [float] $appPackageSize [当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；单位：MB]
 	 * @return [type]                 [description]
 	 */
-	public function appPackageSize($appPackageSize){
+	public function appPackageSize($appPackageSize) {
 		$this->appPackageSize = $appPackageSize;
 	}
 
@@ -321,7 +319,7 @@ class BaiDuBES {
 	 * @param  [inter] $dataRate [当adviewType 为3 时，该字段必填；视频广告的码流，单位是Kbps]
 	 * @return [type]           [description]
 	 */
-	public function dataRate($dataRate){
+	public function dataRate($dataRate) {
 		$this->dataRate = $dataRate;
 	}
 
@@ -330,7 +328,7 @@ class BaiDuBES {
 	 * @param  [inter] $duration [当adviewType 为3 时，该字段必填；广告的播放时长，单位是s]
 	 * @return [type]           [description]
 	 */
-	public function duration($duration){
+	public function duration($duration) {
 		$this->duration = $duration;
 	}
 
@@ -339,17 +337,8 @@ class BaiDuBES {
 	 * @param  [type] $playTimeMonitorUrl [即使是adviewType 为3，该字段也非必填；视频广告的播放时间监测。在视频广告播放的最后一秒请求，BES会在监测的后面添加播放完成的时间，单位是s。如http://dsp.com/……&pt=10长度限制：1024 个字节]
 	 * @return [type]                     [description]
 	 */
-	public function playTimeMonitorUrl($playTimeMonitorUrl){
+	public function playTimeMonitorUrl($playTimeMonitorUrl) {
 		$this->playTimeMonitorUrl = $playTimeMonitorUrl;
-	}
-
-	/**
-	 * 广告主id
-	 * @param  [string] $advertiserId [广告主id]
-	 * @return [type]               [description]
-	 */
-	public function advertiserId($advertiserId){
-		$tis->advertiserId = $advertiserId;
 	}
 
 	/**
@@ -357,7 +346,7 @@ class BaiDuBES {
 	 * @param  [type] $domain [只填写主域名]
 	 * @return [type]         [description]
 	 */
-	public function domain($domain){
+	public function domain($domain) {
 		$this->domain = $domain;
 	}
 
@@ -365,7 +354,7 @@ class BaiDuBES {
 	 * 添加广告主
 	 * @return [type] [description]
 	 */
-	public function advertiserAdd(){
+	public function advertiserAdd() {
 		$this->http = $this->conf['api_https']['advertisers']['add'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -381,7 +370,7 @@ class BaiDuBES {
 	 * 更新广告主信息
 	 * @return [type] [description]
 	 */
-	public function advertiserUpdate(){
+	public function advertiserUpdate() {
 		$this->http = $this->conf['api_https']['advertisers']['update'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -397,7 +386,7 @@ class BaiDuBES {
 	 * 获取指定时间段内上传的广告主信息
 	 * @return [type] [description]
 	 */
-	public function advertiserGetAll(){
+	public function advertiserGetAll() {
 		$this->http = $this->conf['api_https']['advertisers']['getAll'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -414,7 +403,7 @@ class BaiDuBES {
 	 * 查询指定ID的广告主信息
 	 * @return [type] [description]
 	 */
-	public function advertiserGet(){
+	public function advertiserGet() {
 		$this->http = $this->conf['api_https']['advertisers']['get'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -430,7 +419,7 @@ class BaiDuBES {
 	 * 查询指定广告主的审核状态
 	 * @return [type] [description]
 	 */
-	public function advertiserQueryQualification(){
+	public function advertiserQueryQualification() {
 		$this->http = $this->conf['api_https']['advertisers']['queryQualification'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -446,7 +435,7 @@ class BaiDuBES {
 	 * 添加创意
 	 * @return [type] [description]
 	 */
-	public function creativeAdd(){
+	public function creativeAdd() {
 		$this->http = $this->conf['api_https']['creatives']['add'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -462,11 +451,11 @@ class BaiDuBES {
 	 * 修改创意
 	 * @return [type] [description]
 	 */
-	public function creativeUpdate(){
+	public function creativeUpdate() {
 		$this->http = $this->conf['api_https']['creatives']['update'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
-		'authHeader' => array(
+			'authHeader' => array(
 				'dspId' => $this->conf['dspId'],
 				'token' => $this->conf['token'],
 			),
@@ -478,7 +467,7 @@ class BaiDuBES {
 	 * 获取指定时段上传的创意
 	 * @return [type] [description]
 	 */
-	public function creativeGetAll(){
+	public function creativeGetAll() {
 		$this->http = $this->conf['api_https']['creatives']['getAll'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -495,7 +484,7 @@ class BaiDuBES {
 	 * 获取指定id的创意信息
 	 * @return [type] [description]
 	 */
-	public function creativeGet(){
+	public function creativeGet() {
 		$this->http = $this->conf['api_https']['creatives']['get'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -511,7 +500,7 @@ class BaiDuBES {
 	 * 查询创意审核 状态
 	 * @return [type] [description]
 	 */
-	public function creativeQueryAuditState(){
+	public function creativeQueryAuditState() {
 		$this->http = $this->conf['api_https']['creatives']['queryAuditState'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -527,7 +516,7 @@ class BaiDuBES {
 	 * 查询百度修正过的创意及行业
 	 * @return [type] [description]
 	 */
-	public function creativeGetTradeModified(){
+	public function creativeGetTradeModified() {
 		$this->http = $this->conf['api_https']['creatives']['getTradeModified'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -545,7 +534,7 @@ class BaiDuBES {
 	 * 查询指定时间内被拒绝的创意
 	 * @return [type] [description]
 	 */
-	public function creativeDynamicGetAll(){
+	public function creativeDynamicGetAll() {
 		$this->http = $this->conf['api_https']['creatives']['dynamicGetAll'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -562,7 +551,7 @@ class BaiDuBES {
 	 * 创意预览URL 获取（仅web 流量使用）
 	 * @return [type] [description]
 	 */
-	public function creativePreviewWebsite(){
+	public function creativePreviewWebsite() {
 		$this->http = $this->conf['api_https']['creatives']['dynamicGetAll'];
 		$this->header = array('Content-Type:application/json');
 		$this->request = array(
@@ -579,7 +568,7 @@ class BaiDuBES {
 	 * 执行操作
 	 * @return [type] [description]
 	 */
-	public function exec(){
+	public function exec() {
 		$this->curl->http = $this->http;
 		$this->curl->header = $this->header;
 		$this->curl->data = json_encode($this->request);
@@ -590,8 +579,8 @@ class BaiDuBES {
 	 * 格式化数据
 	 * @return [type] [description]
 	 */
-	public function foramtData($type = 'advertisers'){
-		$this->data = $type == 'advertisers'? array(//上传广告主
+	public function foramtData($type = 'advertisers') {
+		$this->data = $type == 'advertisers' ? array( //上传广告主
 			'advertiserId' => $this->advertiserId,
 			'advertiserLiteName' => $this->advertiserLiteName,
 			'dvertiserName' => $this->dvertiserName,
@@ -599,28 +588,28 @@ class BaiDuBES {
 			'siteUrl' => $this->siteUrl,
 			'telephone' => $this->telephone,
 			'address' => $this->address,
-		) : array(//上传创意
+		) : array( //上传创意
 			'creativeId' => $this->creativeId, //创意id，[true]
-			'adviewType' => $this->adviewType,	//流量类型,1：Web 流量2：Mobile 流量3：Video 流量,[false]
-			'type' => $this->type,	//创意类型,当adviewType 为2 时，该字段只能为1；当adviewType 为3时，该字段只能为3；1：图片2：flash3：视频,[true]
-			'creativeUrl' => $this->creativeUrl,	//创意URL,[false]
-			'binaryData' => $this->binaryData,	//创意二进制数据,大小限制：图片、flash 不大于150k当不存在creativeUrl 时，则选择使用binaryData [false]来上传创意，二者必须存在其一。binaryData 的处理优先级高于creativeUrl。[false]
+			'adviewType' => $this->adviewType, //流量类型,1：Web 流量2：Mobile 流量3：Video 流量,[false]
+			'type' => $this->type, //创意类型,当adviewType 为2 时，该字段只能为1；当adviewType 为3时，该字段只能为3；1：图片2：flash3：视频,[true]
+			'creativeUrl' => $this->creativeUrl, //创意URL,[false]
+			'binaryData' => $this->binaryData, //创意二进制数据,大小限制：图片、flash 不大于150k当不存在creativeUrl 时，则选择使用binaryData [false]来上传创意，二者必须存在其一。binaryData 的处理优先级高于creativeUrl。[false]
 			'targetUrl' => $this->targetUrl, // 点击链接当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；,[false]
-			'landingPage' => $this->landingPage,	//到达页面,当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；长度限制：2048 个字节,[false]
-			'monitorUrls' => array($this->monitorUrls),	// 广告展现监测链,最多包含3 个链接每个链接长度限制：1024 个字节接数组,[true]
+			'landingPage' => $this->landingPage, //到达页面,当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；长度限制：2048 个字节,[false]
+			'monitorUrls' => array($this->monitorUrls), // 广告展现监测链,最多包含3 个链接每个链接长度限制：1024 个字节接数组,[true]
 			'height' => $this->height, // 创意高,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
 			'width' => $this->width, // 创意宽,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
 			'creativeTradeId' => $this->creativeTradeId, //	创意所属广告行业,注：必须指定到第2 级行业。广告行业体系见数据字典,[true]
-			'advertiserId' => $this->advertiserId,	// 广告主id,[true]
+			'advertiserId' => $this->advertiserId, // 广告主id,[true]
 			'frameAgreementNo' => $this->frameAgreementNo, // 框架id,此处的框架id 指广告主与百度签署的框架协议id。如果广告主给出框架id 并且要求将在百度的投放计入框架，那么在上传创意的时候需要填写此字段。,[false]
-			'interactiveStyle' => $this->interactiveStyle,	// 互动样式,当adviewType 为2 时，该字段为必填；0：无1：电话直拨2：点击下载,[false]
-			'telNo' => $this->telNo,	//	电话号码,当adviewType 为2 且interactiveStyle 为1 时，该字段为必填；电话号码须全为数字，如400 号、800 号、手机号、座机号等，例如,[false]
-			'downloadUrl' => $this->downloadUrl,	//	下载包地址,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：2048 个字节,[false]
-			'appName' => $this->appName,	//	应用名称,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于28 个字符,[false]
+			'interactiveStyle' => $this->interactiveStyle, // 互动样式,当adviewType 为2 时，该字段为必填；0：无1：电话直拨2：点击下载,[false]
+			'telNo' => $this->telNo, //	电话号码,当adviewType 为2 且interactiveStyle 为1 时，该字段为必填；电话号码须全为数字，如400 号、800 号、手机号、座机号等，例如,[false]
+			'downloadUrl' => $this->downloadUrl, //	下载包地址,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：2048 个字节,[false]
+			'appName' => $this->appName, //	应用名称,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于28 个字符,[false]
 			'appDesc' => $this->appDesc, //	应用介绍,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于60 个字符,[false]
-			'appPackageSize' => $this->appPackageSize,	//	应用大小,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；单位：MB,[false]
-			'dataRate' => $this->dataRate,	// 码流，当adviewType 为3 时，该字段必填；视频广告的码流，单位是Kbps,[false]
-			'duration' => $this->duration,	// 创意时长,当adviewType 为3 时，该字段必填；广告的播放时长，单位是s,[false]
+			'appPackageSize' => $this->appPackageSize, //	应用大小,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；单位：MB,[false]
+			'dataRate' => $this->dataRate, // 码流，当adviewType 为3 时，该字段必填；视频广告的码流，单位是Kbps,[false]
+			'duration' => $this->duration, // 创意时长,当adviewType 为3 时，该字段必填；广告的播放时长，单位是s,[false]
 			'playTimeMonitorUrl' => $this->playTimeMonitorUrl, // 播放时间监测,即使是adviewType 为3，该字段也非必填；视频广告的播放时间监测。在视频广告播放的最后一秒请求，BES会在监测的后面添加播放完成的时间，单位是s。如http://dsp.com/……&pt=10长度限制：1024 个字节,[false]
 		);
 	}

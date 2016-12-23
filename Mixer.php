@@ -42,4 +42,13 @@ class Mixer {
 			echo ucwords($key) . ':' . $value . PHP_EOL;
 		}
 	}
+
+	public function getCreatives() {
+		$this->db->select(array('*'));
+		$this->db->from('diy_ad_task');
+		$this->db->limit(20, 0);
+		$this->db->get();
+		$query = $this->db->array_result();
+		var_dump($query);
+	}
 }

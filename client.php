@@ -37,10 +37,11 @@ class Client extends Mixer {
 	}
 
 	public function get() {
-
+		$this->getCreatives();
 	}
 }
 
 $Client = new Client($config);
 // $Client->version();
-$Client->get_dbs();
+// $Client->get_dbs();
+$Client->get();

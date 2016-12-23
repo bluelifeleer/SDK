@@ -15,6 +15,7 @@ class MySqliDB extends mysqli {
 	private $select;
 	private $from;
 	private $like;
+	private $limit;
 	private $update;
 	private $insert;
 	private $sql;
@@ -56,14 +57,14 @@ class MySqliDB extends mysqli {
 		foreach ($fields AS $key => $value) {
 			$tmp .= $value . ',';
 		}
-		$this->select = 'SELECT ' . substr($tmp, 0, intval(strlen($tmp) - 1)) . ' FROM ';
+		$this->select = 'SELECT ' . substr($tmp, 0, intval(strlen($tmp) - 1));
 	}
 
 	/**
 	 * 设置from语句
 	 */
 	public function from($table) {
-		$this->from = ' FROM ' . table;
+		$this->from = ' FROM ' . $table;
 	}
 
 	/**
@@ -90,6 +91,16 @@ class MySqliDB extends mysqli {
 	 */
 	public function like($key, $value) {
 		$this->like = $key . ' LIKE "%' . $value . '%"';
+	}
+
+	/**
+	 * 设置limit语句
+	 * @param  [type] $num    [description]
+	 * @param  [type] $offset [description]
+	 * @return [type]         [description]
+	 */
+	public function limit($num, $offset) {
+		$this->limit = ' LIMIT ' . $offset . ',' . $num;
 	}
 
 	/**
@@ -137,7 +148,8 @@ class MySqliDB extends mysqli {
 	 * @return [type] [description]
 	 */
 	public function get() {
-		$this->sql = $this->select . $this->table;
+		$this->sql = $this->select . $this->from . (isset($this->where) && !empty($this->where) ? $this->where : '') . $this->limit;
+		// var_dump($this->sql);
 		$this->result = self::query($this->sql);
 	}
 
