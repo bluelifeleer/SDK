@@ -233,7 +233,7 @@ class ValueMake {
 	 * @return [type] [description]
 	 */
 	public function pcAdd() {
-		$this->vmtype = 'pc-add';
+		$this->vmtype = 'pc_add';
 		$this->http = $this->conf['api_https']['creatives']['pc_add'];
 	}
 
@@ -242,7 +242,7 @@ class ValueMake {
 	 * @return [type] [description]
 	 */
 	public function pcUpdate() {
-		$this->vmtype = 'pc-update';
+		$this->vmtype = 'pc_update';
 		$this->http = $this->conf['api_https']['creatives']['pc_update'];
 	}
 
@@ -251,7 +251,7 @@ class ValueMake {
 	 * @return [type] [description]
 	 */
 	public function pcGet() {
-		$this->vmtype = 'pc-get';
+		$this->vmtype = 'pc_get';
 		$this->http = $this->conf['api_https']['creatives']['pc_get'] . '?id=' . $this->id;
 	}
 
@@ -260,8 +260,80 @@ class ValueMake {
 	 * @return [type] [description]
 	 */
 	public function pcStatus() {
-		$this->vmtype = 'pc-status';
+		$this->vmtype = 'pc_status';
 		$this->http = $this->conf['api_https']['creatives']['pc_status'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 添加CPE创意
+	 * @return [type] [description]
+	 */
+	public function CPEAdd() {
+		$this->vmtype = 'cpe_add';
+		$this->http = $this->conf['api_https']['creatives']['cpe_add'];
+	}
+
+	/**
+	 * 更新CPE创意
+	 * @return [type] [description]
+	 */
+	public function CPEUpdate() {
+		$this->vmtype = 'cpe_update';
+		$this->http = $this->conf['api_https']['creatives']['cpe_update'];
+	}
+
+	/**
+	 * 获取CPE创意信息
+	 * @return [type] [description]
+	 */
+	public function CPEGet() {
+		$this->vmtype = 'cpe_get';
+		$this->http = $this->conf['api_https']['creatives']['cpe_get'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 获取CPE创意审核状态
+	 * @return [type] [description]
+	 */
+	public function CPEStatus() {
+		$this->vmtype = 'cpe_status';
+		$this->http = $this->conf['api_https']['creatives']['cpe_status'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 添加PC视频创意
+	 * @return [type] [description]
+	 */
+	public function pcVideoAdd() {
+		$this->vmtype = 'pc_video_add';
+		$this->http = $this->conf['api_https']['creatives']['pc_video_add'];
+	}
+
+	/**
+	 * 更新PC视频创意
+	 * @return [type] [description]
+	 */
+	public function pcVideoUpdate() {
+		$this->vmtype = 'pc_video_update';
+		$this->http = $this->conf['api_https']['creatives']['pc_video_update'];
+	}
+
+	/**
+	 * 获取PC视频创意信息
+	 * @return [type] [description]
+	 */
+	public function pcVideoGet() {
+		$this->vmtype = 'pc_video_get';
+		$this->http = $this->conf['api_https']['creatives']['pc_video_get'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 获取PC视频创意审核状态
+	 * @return [type] [description]
+	 */
+	public function pcVideoStatus() {
+		$this->vmtype = 'pc_video_status';
+		$this->http = $this->conf['api_https']['creatives']['pc_video_status'] . '?id=' . $this->id;
 	}
 
 	/**
@@ -318,9 +390,49 @@ class ValueMake {
 		$this->http = $this->conf['api_https']['creatives']['mobile_status'] . '?id=' . $this->id;
 	}
 
+	/**
+	 * 添加移动视频创意
+	 * @return [type] [description]
+	 */
+	public function mobileVideoAdd() {
+		$this->vmtype = 'mobile_video_add';
+		$this->http = $this->conf['api_https']['creatives']['mobile_video_add'];
+	}
+
+	/**
+	 * 更新移动视频创意
+	 * @return [type] [description]
+	 */
+	public function mobileVideoUpdate() {
+		$this->vmtype = 'mobile_video_update';
+		$this->http = $this->conf['api_https']['creatives']['mobile_video_update'];
+	}
+
+	/**
+	 * 获取移动视频创意信息
+	 * @return [type] [description]
+	 */
+	public function mobileVideoGet() {
+		$this->vmtype = 'mobile_video_get';
+		$this->http = $this->conf['api_https']['creatives']['mobile_video_get'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 获取移动视频创意审核状态
+	 * @return [type] [description]
+	 */
+	public function mobile_video_status() {
+		$this->vmtype = 'mobile_video_status';
+		$this->http = $this->conf['api_https']['creatives']['mobile_video_status'] . '?id=' . $this->id;
+	}
+
+	/**
+	 * 格式化创意数据
+	 * @return [type] [description]
+	 */
 	public function formatData() {
 		switch ($this->vmtype) {
-		case 'pc-update':
+		case 'pc_update':
 			$this->data = array(
 				'id' => $this->id,
 				'width' => $this->width,
@@ -331,19 +443,7 @@ class ValueMake {
 				'adomain_list' => $this->adomain_list,
 			);
 			break;
-		case 'mobile-wap-add':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
-				'adomain_list' => $this->adomain_list,
-				'advertiser' => $this->advertiser,
-			);
-			break;
-		case 'mobile-wap-update':
+		case 'mobile_wap_add':
 			$this->data = array(
 				'id' => $this->id,
 				'width' => $this->width,
@@ -355,7 +455,7 @@ class ValueMake {
 				'advertiser' => $this->advertiser,
 			);
 			break;
-		case 'mobile-app-add':
+		case 'mobile_wap_update':
 			$this->data = array(
 				'id' => $this->id,
 				'width' => $this->width,
@@ -364,20 +464,130 @@ class ValueMake {
 				'category' => $this->category,
 				'html_snippet' => $this->html_snippet,
 				'adomain_list' => $this->adomain_list,
+				'advertiser' => $this->advertiser,
 			);
 			break;
-		case 'mobile-app-update':
+		case 'mobile_app_add':
+			$this->data = array(
+				'id' => $this->id,
+				'landingpage' => $this->landingpage,
+				'width' => $this->width,
+				'height' => $this->height,
+				'adtype' => $thi->adtype,
+				'format' => $this->format,
+				'category' => $this->category,
+				'adomain_list' => $this->adomain_list,
+				'pic_urls' => $this->pic_urls,
+				'title' => $this->title,
+				'text' => $this->text,
+				'advertiser' => $this->advertiser,
+			);
+			break;
+		case 'mobile_app_update':
+			$this->data = array(
+				'id' => $this->id,
+				'landingpage' => $this->landingpage,
+				'width' => $this->width,
+				'height' => $this->height,
+				'adtype' => $thi->adtype,
+				'format' => $this->format,
+				'category' => $this->category,
+				'adomain_list' => $this->adomain_list,
+				'pic_urls' => $this->pic_urls,
+				'title' => $this->title,
+				'text' => $this->text,
+				'advertiser' => $this->advertiser,
+			);
+			break;
+		case 'mobile_video_add':
+			$this->data = array(
+				'id' => $this->id,
+				'category' => $this->category,
+				'duration' => $this->duration,
+				'fileurl' => $this->file_url,
+				'landingpage' => $this->landingpage,
+				'adomain_list' => $this->adomain_list,
+				'width' => $this->width,
+				'height' => $this->height,
+				'format' => $this->format,
+				'advertiser' => $this->advertiser,
+				'creative_type' => $this->creative_type,
+			);
+			break;
+		case 'mobile_video_update':
+			$this->data = array(
+				'id' => $this->id,
+				'category' => $this->category,
+				'duration' => $this->duration,
+				'fileurl' => $this->file_url,
+				'landingpage' => $this->landingpage,
+				'adomain_list' => $this->adomain_list,
+				'width' => $this->width,
+				'height' => $this->height,
+				'format' => $this->format,
+				'advertiser' => $this->advertiser,
+				'creative_type' => $this->creative_type,
+			);
+			break;
+		case 'cpe_add':
 			$this->data = array(
 				'id' => $this->id,
 				'width' => $this->width,
 				'height' => $this->height,
 				'format' => $this->format,
 				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
+				'pic_url' => $this->pic_urls,
 				'adomain_list' => $this->adomain_list,
+				'landingpage' => $this->landingpage,
+				'visible_urls' => $this->visible_urls,
+				'cpe_info' => $this->cpe_info,
 			);
 			break;
-		default: // pc-add
+		case 'cpe_update':
+			$this->data = array(
+				'id' => $this->id,
+				'width' => $this->width,
+				'height' => $this->height,
+				'format' => $this->format,
+				'category' => $this->category,
+				'pic_url' => $this->pic_urls,
+				'adomain_list' => $this->adomain_list,
+				'landingpage' => $this->landingpage,
+				'visible_urls' => $this->visible_urls,
+				'cpe_info' => $this->cpe_info,
+			);
+			break;
+		case 'pc_video_add':
+			$this->data = array(
+				'id' => $this->id,
+				'category' => $this->category,
+				'duration' => $this->duration,
+				'fileurl' => $this->fileurl,
+				'landingpage' => $this->landingpage,
+				'adomain_list' => $this->adomain_list,
+				'width' => $this->width,
+				'height' => $this->height,
+				'format' => $this->format,
+				'advertiser' => $this->advertiser,
+				'creative_type' => $this->creative_type,
+			);
+			break;
+		case 'pc_video_update':
+			$this->data = array(
+				'id' => $this->id,
+				'category' => $this->category,
+				'duration' => $this->duration,
+				'fileurl' => $this->fileurl,
+				'landingpage' => $this->landingpage,
+				'adomain_list' => $this->adomain_list,
+				'width' => $this->width,
+				'height' => $this->height,
+				'format' => $this->format,
+				'advertiser' => $this->advertiser,
+				'creative_type' => $this->creative_type,
+			);
+			break;
+		default: // pc_add
 			$this->data = array(
 				'id' => $this->id,
 				'width' => $this->width,
