@@ -62,6 +62,8 @@ class MiaoZhen {
 	private $adtext;
 	private $showtext;
 	private $deliveryType;
+	private $reportType;
+	private $date;
 
 	public function __construct($curl, $conf) {
 		$this->curl = $curl;
@@ -179,6 +181,15 @@ class MiaoZhen {
 	 */
 	public function enddate($enddate = '') {
 		$this->enddate = $enddate;
+	}
+
+	/**
+	 * 设置指定某一天获取小时报表的天
+	 * @param  string $date [description]
+	 * @return [type]       [description]
+	 */
+	public function date($date = ''){
+		$this->date = $date;
 	}
 
 	/**
@@ -473,6 +484,15 @@ class MiaoZhen {
 		$this->deliveryType = $deliveryType;
 	}
 
+	/**
+	 * 请求的报表类型
+	 * @param  string $reportType [请求的报表类型,包括：general（概览）和detail（详细数据），如果为空，则默认为general]
+	 * @return [type]             [description]
+	 */
+	public function reportType($reportType = 'general'){
+		$this->reportType = $reportType;
+	}
+
 	public function formatData() {
 		switch (intval($this->creativeType)) {
 		case 2: // 普通信息流
@@ -573,16 +593,54 @@ class MiaoZhen {
 		}
 	}
 
+	/**
+	 * 添加创意信息
+	 */
 	public function add() {
 		$this->curl->http = $this->conf['add'];
 		$this->curl->header = $this->header;
 		$this->curl->data = json_encode($this->data);
 	}
 
+	/**
+	 * 获取创意审核状态
+	 * @return [type] [description]
+	 */
 	public function status() {
 		$this->curl->http = $this->conf['status'];
 		$this->curl->header = $this->header;
 		$this->curl->data = json_encode($this->data['creativeIds'] = array($this->creativeId));
+	}
+
+	/**
+	 * 获取指定一段日期报表
+	 * @return [type] [description]
+	 */
+	public function reportByDay() {
+		$this->data['type'] = $this->reportType;
+		$this->data['startdate'] = $this->startdate;
+		$this->data['enddate'] = $this->enddate;
+		$this->curl->http = $this->conf['report'];
+		$this->curl->header = $this->header;
+		$this->curl->data = json_encode($this->data);
+	}
+
+	/**
+	 * 获取指定某一天内小时的报表，
+	 * @return [type] [description]
+	 */
+	public function reportByHour(){
+		$this->curl->http = $this->conf['report'].'/hour/'.$this->reportType;
+		$this->curl->header = $this->header;
+		if($this->reportType = 'general'){
+			$this->data['startdate'] = $this->startdate;
+			$this->data['enddate'] = $this->enddate;
+		}else{
+			//按小时获取详细报表,如果没有设置要获取哪一天的报表则获取当前天的前一天的报表，只能查1天
+			$this->data['date'] = isset($this->date) && !empty($this->date) || $this->date ? $this->date : date('Y-m-d', strtotime("-1 day")));
+		
+		}
+		$this->curl->http = $this->conf['report']$this->reportType;
 	}
 
 	public function exec() {
