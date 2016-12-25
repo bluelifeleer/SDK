@@ -640,7 +640,6 @@ class MiaoZhen {
 			$this->data['date'] = isset($this->date) && !empty($this->date) || $this->date ? $this->date : date('Y-m-d', strtotime("-1 day")));
 		
 		}
-		$this->curl->http = $this->conf['report']$this->reportType;
 	}
 
 	public function exec() {
