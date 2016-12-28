@@ -66,6 +66,10 @@ $config['bes'] = [
 $config['tanx'] = [
 	'appKey' => '23343680',
 	'appSecret' => '649898950e521f4a3834543c284d39bb',
+	'tanx_http' => 'http://gw.api.taobao.com/router/rest',
+	'tanx_https' => 'https://eco.taobao.com/router/rest',
+	'tanx_http_tbsandbox' => 'http://gw.api.tbsandbox.com/router/rest',
+	'tanx_https_tbsandbox' => 'https://gw.api.tbsandbox.com/router/rest',
 	'api_https' => [
 		'advertisers' => [
 			//广告主资质查询接口
