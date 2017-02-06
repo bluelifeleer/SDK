@@ -18,8 +18,6 @@ class AutoLoad {
 	}
 
 	public function AutoLoading() {
-		// var_dump($this->require_files);
-		// exit;
 		foreach ($this->require_files AS $key => $value) {
 			if ($value && !empty($value)) {
 				// Can`t usr __DIR__ as it`s only in PHP 5.3+

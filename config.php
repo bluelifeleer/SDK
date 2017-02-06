@@ -12,11 +12,13 @@
 /**
  * Database Configtions
  */
-$config['db']['host'] = 'rm-bp161jfen84tpr7d2o.mysql.rds.aliyuncs.com';
-$config['db']['user'] = 'huihex';
-$config['db']['passwd'] = 'koolma2010';
-$config['db']['db_name'] = 'huihe_marketing_system';
-$config['db']['port'] = 3306;
+$config['db'] = [
+	'host' => 'rm-bp161jfen84tpr7d2o.mysql.rds.aliyuncs.com',
+	'user' => 'huihex',
+	'passwd' => 'koolma2010',
+	'db_name' => 'huihe_marketing_system',
+	'port' => 3306,
+];
 
 /**
  * Redis config
