@@ -11,12 +11,15 @@
 class AutoLoad {
 	private $path;
 	private $require_files;
-	public function __construct() {
+	public function __construct($files) {
 		// $this->require_files = array('Curl', 'Write', 'MySqliDB', 'SDKException', 'Adinall' . DIRECTORY_SEPARATOR . 'Adinall', 'BaiDuBES' . DIRECTORY_SEPARATOR . 'BaiDuBES', 'MiaoZhen' . DIRECTORY_SEPARATOR . 'MiaoZhen', 'Tanx' . DIRECTORY_SEPARATOR . 'Tanx', 'ValueMake' . DIRECTORY_SEPARATOR . 'ValueMake');
-		$this->require_files = array('Curl', 'Write', 'MySqliDB', 'SDKException', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
+		$this->require_files = $files;
+		// array('Curl', 'Write', 'MySqliDB', 'SDKException', 'Adinall/Adinall', 'BaiDuBES/BaiDuBES', 'MiaoZhen/MiaoZhen', 'Tanx/Tanx', 'ValueMake/ValueMake');
 	}
 
 	public function AutoLoading() {
+		// var_dump($this->require_files);
+		// exit;
 		foreach ($this->require_files AS $key => $value) {
 			if ($value && !empty($value)) {
 				// Can`t usr __DIR__ as it`s only in PHP 5.3+
@@ -34,6 +37,6 @@ class AutoLoad {
 	}
 }
 
-// $autoLoad = new AutoLoad();
-// $autoLoad->AutoLoading();
-spl_autoload_register('AutoLoad::AutoLoading');
+$autoLoad = new AutoLoad($config['auto_loader_file']);
+$autoLoad->AutoLoading();
+// spl_autoload_register('AutoLoad::AutoLoading');

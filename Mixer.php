@@ -19,6 +19,7 @@ class Mixer {
 	private $adinall;
 	private $bes;
 	private $tanx;
+	public $redis;
 	private $miaozhen;
 	public function __construct($config) {
 		$this->conf = $config;
@@ -31,6 +32,7 @@ class Mixer {
 		$this->bes = new BaiDuBES($this->curl, $this->conf['bes']);
 		$this->tanx = new Tanx($this->curl, $this->conf['tanx']);
 		$this->miaozhen = new MiaoZhen($this->curl, $this->conf['mz']);
+		$this->redis = new PHPRedis($this->conf['redis']);
 	}
 
 	public function get_db() {

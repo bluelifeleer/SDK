@@ -1,7 +1,16 @@
 <?php
+/**
+ * |---------------------------------------------------------------------------------------
+ * |	Config file
+ * |---------------------------------------------------------------------------------------
+ * |	Author bluelife
+ * |	Date 2017-02-06
+ * |	Email thebuleife@outlook.com
+ * |---------------------------------------------------------------------------------------
+ */
 
 /**
- * database Configtions
+ * Database Configtions
  */
 $config['db']['host'] = 'rm-bp161jfen84tpr7d2o.mysql.rds.aliyuncs.com';
 $config['db']['user'] = 'huihex';
@@ -9,6 +18,19 @@ $config['db']['passwd'] = 'koolma2010';
 $config['db']['db_name'] = 'huihe_marketing_system';
 $config['db']['port'] = 3306;
 
+/**
+ * Redis config
+ */
+$config['redis'] = [
+	'host' => '127.0.0.1',
+	'port' => 6379,
+	'time_out' => '',
+	'pconnect' => false,
+];
+
+/**
+ * Versions
+ */
 $config['ver'] = [
 	'version' => '1.0',
 	'author' => 'bluelife',
@@ -23,7 +45,23 @@ $config['ver'] = [
 ];
 
 /**
- * baidu BES configtions
+ * Autoload files array
+ */
+$config['auto_loader_file'] = array(
+	'Curl',
+	'Write',
+	'MySqliDB',
+	'Redis',
+	'SDKException',
+	'Adinall/Adinall',
+	'BaiDuBES/BaiDuBES',
+	'MiaoZhen/MiaoZhen',
+	'Tanx/Tanx',
+	'ValueMake/ValueMake',
+);
+
+/**
+ * Baidu BES configtions
  */
 $config['bes'] = [
 	'dspId' => '18010532',
@@ -182,7 +220,7 @@ $config['mz'] = [
 ];
 
 /**
- * http request status code
+ * Http request status code
  */
 $config['error_code'] = [
 	'bes' => [

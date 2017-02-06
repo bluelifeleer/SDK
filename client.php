@@ -37,7 +37,9 @@ class Client extends Mixer {
 	}
 
 	public function get() {
-		$this->getCreatives();
+		// $this->getCreatives();
+		// $this->redis->ping();
+		var_dump($this->redis->ping());
 	}
 }
 

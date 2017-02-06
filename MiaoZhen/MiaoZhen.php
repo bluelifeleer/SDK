@@ -188,7 +188,7 @@ class MiaoZhen {
 	 * @param  string $date [description]
 	 * @return [type]       [description]
 	 */
-	public function date($date = ''){
+	public function date($date = '') {
 		$this->date = $date;
 	}
 
@@ -489,7 +489,7 @@ class MiaoZhen {
 	 * @param  string $reportType [请求的报表类型,包括：general（概览）和detail（详细数据），如果为空，则默认为general]
 	 * @return [type]             [description]
 	 */
-	public function reportType($reportType = 'general'){
+	public function reportType($reportType = 'general') {
 		$this->reportType = $reportType;
 	}
 
@@ -629,16 +629,16 @@ class MiaoZhen {
 	 * 获取指定某一天内小时的报表，
 	 * @return [type] [description]
 	 */
-	public function reportByHour(){
-		$this->curl->http = $this->conf['report'].'/hour/'.$this->reportType;
+	public function reportByHour() {
+		$this->curl->http = $this->conf['report'] . '/hour/' . $this->reportType;
 		$this->curl->header = $this->header;
-		if($this->reportType = 'general'){
+		if ($this->reportType = 'general') {
 			$this->data['startdate'] = $this->startdate;
 			$this->data['enddate'] = $this->enddate;
-		}else{
+		} else {
 			//按小时获取详细报表,如果没有设置要获取哪一天的报表则获取当前天的前一天的报表，只能查1天
-			$this->data['date'] = isset($this->date) && !empty($this->date) || $this->date ? $this->date : date('Y-m-d', strtotime("-1 day")));
-		
+			$this->data['date'] = isset($this->date) && !empty($this->date) ? $this->date : date('Y-m-d', strtotime("-1 day"));
+
 		}
 	}
 
