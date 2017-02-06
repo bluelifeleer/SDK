@@ -34,6 +34,6 @@ class AutoLoad {
 	}
 }
 
-$autoLoad = new AutoLoad();
-$autoLoad->AutoLoading();
-// spl_autoload_register('AutoLoad::AutoLoading');
+// $autoLoad = new AutoLoad();
+// $autoLoad->AutoLoading();
+spl_autoload_register('AutoLoad::AutoLoading');
