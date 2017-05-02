@@ -47,22 +47,6 @@ $config['ver'] = [
 ];
 
 /**
- * Autoload files array
- */
-$config['auto_loader_file'] = array(
-	'Curl',
-	'Write',
-	'MySqliDB',
-	'Redis',
-	'SDKException',
-	'Adinall/Adinall',
-	'BaiDuBES/BaiDuBES',
-	'MiaoZhen/MiaoZhen',
-	'Tanx/Tanx',
-	'ValueMake/ValueMake',
-);
-
-/**
  * Baidu BES configtions
  */
 $config['bes'] = [

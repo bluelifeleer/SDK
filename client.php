@@ -22,11 +22,6 @@ class Client extends Mixer {
 	public function __set($key, $value) {
 		$this->$key = $value;
 	}
-
-	public function version() {
-		$this->get_version();
-	}
 }
 
 $Client = new Client($config);
-$Client->version();

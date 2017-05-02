@@ -1,5 +1,9 @@
 <?php
-require_once __DIR__ . '/autoLoad.php';
+
+$file = str_replace('\\', DIRECTORY_SEPARATOR, __DIR__ . DIRECTORY_SEPARATOR) . 'Autoloader.php';
+	if(is_file($file)){
+	require_once $file;
+}
 /**
  * |-----------------------------------------------------------------------------
  * | Mixer Class
@@ -32,7 +36,7 @@ class Mixer {
 		$this->bes = new BaiDuBES($this->curl, $this->conf['bes']);
 		$this->tanx = new Tanx($this->curl, $this->conf['tanx']);
 		$this->miaozhen = new MiaoZhen($this->curl, $this->conf['mz']);
-		$this->redis = new PHPRedis($this->conf['redis']);
+		// $this->redis = new PHPRedis($this->conf['redis']);
 	}
 
 	public function get_db() {
