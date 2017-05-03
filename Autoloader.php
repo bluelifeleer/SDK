@@ -11,37 +11,32 @@
 
 spl_autoload_register('Autoloader::autoload', true, true);
 
-class Autoloader
-{
-    private static $autoload_list = array(
-        '.',
-        'Mailer',
-        'lib',
-        'Adinall',
-        'BaiDuBES',
-        'MiaoZhen',
-        'Tanx',
-        'ValueMake',
-    );
+class Autoloader {
+	private static $autoload_list = array(
+		'.',
+		'Mailer',
+		'lib',
+		'Adinall',
+		'BaiDuBES',
+		'MiaoZhen',
+		'Tanx',
+		'ValueMake',
+	);
 
-    public static function autoload($className)
-    {
-        $className = trim(str_replace('SDK\\', '', $className));
-        foreach (self::$autoload_list as $path) {
-            $file = __DIR__ . ($path == './' || $path == '.' ? '' : DIRECTORY_SEPARATOR . $path) . DIRECTORY_SEPARATOR . $className . '.php';
-            $file = str_replace('\\', DIRECTORY_SEPARATOR, $file);
-            if (is_file($file)) {
-                include_once $file;
-                echo 'loadered ' . $file . PHP_EOL;
-                break;
-            }
-        }
-    }
+	public static function autoload($className) {
+		$className = trim(str_replace('SDK\\', '', $className));
+		foreach (self::$autoload_list as $path) {
+			$file = __DIR__ . ($path == './' || $path == '.' ? '' : DIRECTORY_SEPARATOR . $path) . DIRECTORY_SEPARATOR . $className . '.php';
+			$file = str_replace('\\', DIRECTORY_SEPARATOR, $file);
+			if (is_file($file)) {
+				include_once $file;
+				echo 'loadered ' . $file . PHP_EOL;
+				break;
+			}
+		}
+	}
 
-    public static function addAutoloadPath($path)
-    {
-        array_push(self::$autoload_list, $path);
-    }
+	public static function addAutoloadPath($path) {
+		array_push(self::$autoload_list, $path);
+	}
 }
-
-

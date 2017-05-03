@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>发邮件</title>
+	<style>
+		.sen-maile-block{width:100%;margin:0 auto;}
+		label{display:inline-block;width:60px;}
+		p{width:100%;height:40px;padding:0;margin:0;}
+		p input{width:600px;height:28px;line-height:28px;}
+		.body-title-block{width:100%;height:30px;line-height:30px;}
+	</style>
+</head>
+<body>
+	<div class="sen-maile-block">
+		<form action="sendMail.php" method="post" accept-charset="utf-8">
+			<p><label for="s-name">发件人:</label><input style="width:200px;" type="text" name="s-name" value="thebulelife@163.com" placeholder="thebulelife@163.com" /></p>
+			<p><label for="name">收件人:</label><input type="text" name="name" value="" placeholder="收件人,支持多个,用','隔开" /></p>
+			<p><label for="title">标题:</label><input type="text" name="title" placeholder="标题"></p>
+			<p><label for="attribute">附件:</label><input type="file" name="attribute" placeholder="选择附件"></p>
+			<p><label for="c-name">抄送人:</label><input type="text" name="c-name" value="" placeholder="抄件人,支持多个,用','隔开" /></p>
+			<p><label for="m-name">密送人:</label><input type="text" name="mm-name" value="" placeholder="密件人,支持多个,用','隔开" /></p>
+			<div class="body-block">
+				<div class="body-title-block">邮件主体内容:</div>
+				<div class="body-content-block">
+					<textarea name="body-content" rows="20" cols="100"></textarea>
+				</div>
+			</div>
+			<p><input style="width:60px;" type="submit" name="send-but" value="发送" /></p>
+		</form>
+	</div>
+</body>
+</html>

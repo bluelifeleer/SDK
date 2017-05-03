@@ -6,14 +6,14 @@ $mail = new PHPMailer;
 //$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
 $mail->isSMTP(); // Set mailer to use SMTP
-$mail->Host = 'smtp.qq.com'; // Specify main and backup SMTP servers
+$mail->Host = 'smtp.163.com'; // Specify main and backup SMTP servers
 $mail->SMTPAuth = true; // Enable SMTP authentication
-$mail->Username = '703294267@qq.com'; // SMTP username
+$mail->Username = 'thebulelife@163.com'; // SMTP username
 $mail->Password = 'fqwjuuqxrrsfbfha'; // SMTP password
 $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 25; // TCP port to connect to
 $mail->CharSet = "utf-8"; //set encode
-$mail->setFrom('703294267@qq.com', 'tuibian');
+$mail->setFrom('thebulelife@163.com', 'bluelife');
 $mail->addAddress('peng.li@koolbao.com', 'lipeng'); // Add a recipient
 // $mail->addAddress('ellen@example.com');               // Name is optional
 // $mail->addReplyTo('info@example.com', 'Information');

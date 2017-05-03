@@ -10,6 +10,36 @@
  */
 
 /**
+ * Mailer Configtions
+ */
+$config['mailer'] = [
+	// Specify main and backup SMTP servers
+	'host' => 'smtp.qq.com',
+	// SMTP username
+	'user_name' => '703294267@qq.com',
+	// SMTP password
+	'password' => 'fqwjuuqxrrsfbfha',
+	// TCP port to connect to
+	'port' => 25,
+	// send a mailer
+	'set_form' => ['703294267@qq.com', 'tuibian'],
+	// Add a recipient
+	'add_adderss' => [
+		['peng.li@koolbao.com', 'lipeng'],
+		['thebulelife@163.com', 'bluelife'],
+		['thebulelife@outlook.com', 'bluelife'],
+	],
+	// 回复
+	'add_reply_to' => [],
+	// 抄送
+	'add_CC' => [],
+	// 密送
+	'add_BCC' => [],
+	// 附件
+	'add_attachment' => [],
+];
+
+/**
  * Database Configtions
  */
 $config['db'] = [

@@ -1,14 +1,14 @@
 <?php
 $file = str_replace('\\', DIRECTORY_SEPARATOR, __DIR__ . DIRECTORY_SEPARATOR) . 'Autoloader.php';
-if(is_file($file)){
+if (is_file($file)) {
 	require_once $file;
 }
+// require_once __DIR__ . '\Mailer\PHPMailerAutoload.php';
 // use SDK\ValueMake;
 // use SDK\BaiDuBES;
 // use SDK\Tanx;
 // use SDK\MiaoZhen;
 // use SDK\Adinall;
-
 
 /**
  * |-----------------------------------------------------------------------------
@@ -47,36 +47,53 @@ class Mixer {
 		$this->tanx = new SDK\Tanx\Tanx($this->curl, $this->conf['tanx']);
 		$this->miaozhen = new SDK\MiaoZhen\MiaoZhen($this->curl, $this->conf['mz']);
 		// $this->redis = new PHPRedis($this->conf['redis']);
-		
+
 	}
 
-	private function mailer_initialize(){
+	private function mailer_initialize() {
 		//$mail->SMTPDebug = 3;                               // Enable verbose debug output
 		$this->mailer->isSMTP(); // Set mailer to use SMTP
-		$this->mailer->Host = 'smtp.qq.com'; // Specify main and backup SMTP servers
+		$this->mailer->Host = $this->conf['mailer']['host']; // Specify main and backup SMTP servers
 		$this->mailer->SMTPAuth = true; // Enable SMTP authentication
-		$this->mailer->Username = '703294267@qq.com'; // SMTP username
-		$this->mailer->Password = 'fqwjuuqxrrsfbfha'; // SMTP password
+		$this->mailer->Username = $this->conf['mailer']['user_name']; // SMTP username
+		$this->mailer->Password = $this->conf['mailer']['password']; // SMTP password
 		$this->mailer->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-		$this->mailer->Port = 25; // TCP port to connect to
+		$this->mailer->Port = $this->conf['mailer']['port']; // TCP port to connect to
 		$this->mailer->CharSet = "utf-8"; //set encode
-		$this->mailer->setFrom('703294267@qq.com', 'tuibian');
-		$this->mailer->addAddress('peng.li@koolbao.com', 'lipeng'); // Add a recipient
-		// $mail->addAddress('ellen@example.com');               // Name is optional
-		// $mail->addReplyTo('info@example.com', 'Information');
-		// $mail->addCC('cc@example.com');
-		// $mail->addBCC('bcc@example.com');
-
-		// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-		// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+		$this->mailer->setFrom($this->conf['mailer']['set_form'][0], $this->conf['mailer']['set_form'][1]);
+		if (isset($this->conf['mailer']['add_adderss']) && !empty($this->conf['mailer']['add_adderss']) && is_array($this->conf['mailer']['add_adderss'])) {
+			foreach ($this->conf['mailer']['add_adderss'] as $value) {
+				$this->mailer->addAddress($value[0], $value[1]);
+			}
+		}
+		if (isset($this->conf['mailer']['add_reply_to']) && !empty($this->conf['mailer']['add_reply_to']) && is_array($this->conf['mailer']['add_reply_to'])) {
+			foreach ($this->conf['mailer']['add_reply_to'] as $value) {
+				$this->mailer->addReplyTo($value[0], $value[1]);
+			}
+		}
+		if (isset($this->conf['mailer']['add_CC']) && !empty($this->conf['mailer']['add_CC']) && is_array($this->conf['mailer']['add_CC'])) {
+			foreach ($this->conf['mailer']['add_CC'] as $value) {
+				$this->mailer->addCC($value[0], $value[1]);
+			}
+		}
+		if (isset($this->conf['mailer']['add_BCC']) && !empty($this->conf['mailer']['add_BCC']) && is_array($this->conf['mailer']['add_BCC'])) {
+			foreach ($this->conf['mailer']['add_BCC'] as $value) {
+				$this->mailer->addBCC($value[0], $value[1]);
+			}
+		}
+		if (isset($this->conf['mailer']['add_attachment']) && !empty($this->conf['mailer']['add_attachment']) && is_array($this->conf['mailer']['add_attachment'])) {
+			foreach ($this->conf['mailer']['add_attachment'] as $value) {
+				$this->mailer->addAttachment($value[0], $value[1]);
+			}
+		}
 	}
 
-	public function send_mailer(){
+	public function send_mailer($msg) {
 		$this->mailer->isHTML(true); // Set email format to HTML
 
-		$this->mailer->Subject = date('Y-m-d H:i:s',time());
-		$this->mailer->Body = '测试';
-		$this->mailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
+		$this->mailer->Subject = date('Y-m-d H:i:s', time());
+		$this->mailer->Body = $msg;
+		$this->mailer->AltBody = $msg;
 
 		if (!$this->mailer->send()) {
 			echo 'Message could not be sent.';
@@ -87,11 +104,12 @@ class Mixer {
 	}
 
 	public function get_version() {
+		$tmp = '';
 		foreach ($this->conf['ver'] AS $key => $value) {
-			echo ucwords($key) . ':' . $value . PHP_EOL;
+			$tmp .= ucwords($key) . ':' . $value . PHP_EOL;
 		}
+		return $tmp;
 	}
-
 
 	public function getCreatives() {
 		$this->db->select(array('*'));
