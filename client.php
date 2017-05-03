@@ -28,4 +28,6 @@ $Client = new Client($config);
 
 // $Client->get_version();
 
-$Client->getCreatives();
+// $Client->getCreatives();
+
+$Client->send_mailer();

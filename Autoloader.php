@@ -9,12 +9,13 @@
  * |-----------------------------------------------------------------------------
  */
 
-spl_autoload_register('Autoloader::autoload');
+spl_autoload_register('Autoloader::autoload', true, true);
 
 class Autoloader
 {
     private static $autoload_list = array(
         '.',
+        'Mailer',
         'lib',
         'Adinall',
         'BaiDuBES',
