@@ -1,4 +1,6 @@
 <?php
+namespace SDK\ValueMake;
+
 /**
  * |-----------------------------------------------------------------------------
  * | ValueMake Class
@@ -41,6 +43,10 @@ class ValueMake {
 		$this->curl = $curl;
 		$this->conf = $conf;
 		$this->header = array('Authorization: Basic ' . base64_encode($this->conf['user_name'] . ':' . $this->conf['passwd']));
+	}
+
+	public function test(){
+		var_dump('test');
 	}
 
 	/**

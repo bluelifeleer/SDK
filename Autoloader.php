@@ -15,6 +15,7 @@ class Autoloader
 {
     private static $autoload_list = array(
         '.',
+        'lib',
         'Adinall',
         'BaiDuBES',
         'MiaoZhen',
@@ -24,6 +25,7 @@ class Autoloader
 
     public static function autoload($className)
     {
+        $className = trim(str_replace('SDK\\', '', $className));
         foreach (self::$autoload_list as $path) {
             $file = __DIR__ . ($path == './' || $path == '.' ? '' : DIRECTORY_SEPARATOR . $path) . DIRECTORY_SEPARATOR . $className . '.php';
             $file = str_replace('\\', DIRECTORY_SEPARATOR, $file);

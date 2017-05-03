@@ -1,9 +1,15 @@
 <?php
-
 $file = str_replace('\\', DIRECTORY_SEPARATOR, __DIR__ . DIRECTORY_SEPARATOR) . 'Autoloader.php';
-	if(is_file($file)){
+if(is_file($file)){
 	require_once $file;
 }
+// use SDK\ValueMake;
+// use SDK\BaiDuBES;
+// use SDK\Tanx;
+// use SDK\MiaoZhen;
+// use SDK\Adinall;
+
+
 /**
  * |-----------------------------------------------------------------------------
  * | Mixer Class
@@ -31,11 +37,11 @@ class Mixer {
 		$this->db = new MySqliDB($this->conf['db']['host'], $this->conf['db']['user'], $this->conf['db']['passwd'], $this->conf['db']['db_name'], $this->conf['db']['port']);
 		$this->curl = new Curl();
 		$this->write = new Write();
-		$this->valueMake = new ValueMake($this->curl, $this->conf['vm']);
-		$this->adinall = new Adinall($this->curl, $this->conf['adinall']);
-		$this->bes = new BaiDuBES($this->curl, $this->conf['bes']);
-		$this->tanx = new Tanx($this->curl, $this->conf['tanx']);
-		$this->miaozhen = new MiaoZhen($this->curl, $this->conf['mz']);
+		$this->valueMake = new SDK\ValueMake\ValueMake($this->curl, $this->conf['vm']);
+		$this->adinall = new SDK\Adinall\Adinall($this->curl, $this->conf['adinall']);
+		$this->bes = new SDK\BaiDuBES\BaiDuBES($this->curl, $this->conf['bes']);
+		$this->tanx = new SDK\Tanx\Tanx($this->curl, $this->conf['tanx']);
+		$this->miaozhen = new SDK\MiaoZhen\MiaoZhen($this->curl, $this->conf['mz']);
 		// $this->redis = new PHPRedis($this->conf['redis']);
 	}
 
