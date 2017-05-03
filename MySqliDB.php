@@ -73,10 +73,10 @@ class MySqliDB extends mysqli {
 	 */
 	public function where() {
 		if (func_num_args() == 2) {
-			$this->where = ' WHERE ' . func_get_arg(1) . '=' . func_get_arg(2);
+			$this->where = ' WHERE ' . func_get_arg(0) . '=' . func_get_arg(1);
 		} else {
 			$tmp = '';
-			foreach (func_get_arg(1) AS $key => $value) {
+			foreach (func_get_arg(0) AS $key => $value) {
 				$tmp .= sprintf('%s=%s,', $key, $value);
 			}
 			$this->where = mb_substr($tmp, 0, intval(strlen($tmp) - 1));
@@ -112,6 +112,14 @@ class MySqliDB extends mysqli {
 	}
 
 	/**
+	 * 获取最后一条执行的SQL语句
+	 * @return [type] [description]
+	 */
+	public function last_query(){
+		return $this->sql;
+	}
+
+	/**
 	 * 执行更新
 	 * @param  array  $data [description]
 	 * @return [type]       [description]
@@ -121,7 +129,7 @@ class MySqliDB extends mysqli {
 		foreach ($this->data AS $key => $value) {
 			$tmp .= sprintf('%s=%s,', $key, $value);
 		}
-		$this->sql = 'UPDATE ' . $this->table . ' SET ' . mb_substr($tmp, 0, intval(strlen($tmp) - 1));
+		$this->sql = trim('UPDATE ' . $this->table . ' SET ' . mb_substr($tmp, 0, intval(strlen($tmp) - 1)));
 		$this->status = self::query($this->sql);
 		return $this->status ? true : false;
 	}
@@ -138,7 +146,7 @@ class MySqliDB extends mysqli {
 			array_push($field, $key);
 			array_push($values, $value);
 		}
-		$this->sql = 'INSERT INTO ' . $this->table . '(' . join(',', $field) . ') VALUES (' . join(',', $values) . ')';
+		$this->sql = trim('INSERT INTO ' . $this->table . '(' . join(',', $field) . ') VALUES (' . join(',', $values) . ')');
 		$this->status = self::query($this->sql);
 		return $this->status ? true : false;
 	}
@@ -148,7 +156,7 @@ class MySqliDB extends mysqli {
 	 * @return [type] [description]
 	 */
 	public function get() {
-		$this->sql = $this->select . $this->from . (isset($this->where) && !empty($this->where) ? $this->where : '') . $this->limit;
+		$this->sql = trim($this->select . $this->from . (isset($this->where) && !empty($this->where) ? $this->where : '') . $this->limit);
 		// var_dump($this->sql);
 		$this->result = self::query($this->sql);
 	}
@@ -168,6 +176,7 @@ class MySqliDB extends mysqli {
 	public function num_rows() {
 		return $this->result->num_rows;
 	}
+
 	/**
 	 * 将一条结果用关联数组的方式返回
 	 * @return [type] [description]
@@ -175,12 +184,19 @@ class MySqliDB extends mysqli {
 	public function fetch_assoc() {
 		return $this->result->fetch_assoc();
 	}
+
 	/**
-	 * 输出insert,update,delete爱影响的数,insert返回自增id
+	 * 输出insert,update,delete受影响的数,insert返回自增id
 	 * @return [type] [description]
 	 */
 	public function affected_rows() {
 		return $this->affected_rows;
+	}
+
+	public function count_all($table){
+		$this->sql = 'SELECT COUNT(*) FROM '. $table . $this->where;
+		$this->result = self::query($this->sql);
+		return intval($this->result->fetch_assoc()['COUNT(*)']);
 	}
 
 	/**

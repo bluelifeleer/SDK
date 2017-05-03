@@ -25,3 +25,7 @@ class Client extends Mixer {
 }
 
 $Client = new Client($config);
+
+$Client->get_version();
+
+// $Client->getCreatives();

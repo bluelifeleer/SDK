@@ -23,7 +23,7 @@ class Mixer {
 	private $adinall;
 	private $bes;
 	private $tanx;
-	public $redis;
+	private $redis;
 	private $miaozhen;
 	public function __construct($config) {
 		$this->conf = $config;
@@ -39,9 +39,6 @@ class Mixer {
 		// $this->redis = new PHPRedis($this->conf['redis']);
 	}
 
-	public function get_db() {
-		var_dump($this->db);
-	}
 
 	public function get_version() {
 		foreach ($this->conf['ver'] AS $key => $value) {
@@ -49,12 +46,17 @@ class Mixer {
 		}
 	}
 
+
 	public function getCreatives() {
 		$this->db->select(array('*'));
 		$this->db->from('diy_ad_task');
+		// $this->db->where('status',1);
 		$this->db->limit(20, 0);
-		$this->db->get();
-		$query = $this->db->array_result();
-		var_dump($query);
+		// $this->db->get();
+		$count = $this->db->count_all('diy_ad_task');
+		var_dump($this->db->last_query());
+		var_dump($count);
+		// $query = $this->db->array_result();
+		// var_dump($query);
 	}
 }
