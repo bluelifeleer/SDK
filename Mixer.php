@@ -39,8 +39,10 @@ class Mixer {
 		$this->curl = new Curl();
 		$this->write = new Write();
 		$this->mailer = new PHPMailer;
-		//初始化邮件信息；
-		$this->mailer_initialize();
+		if($this->conf['mailer']['send_mailer']){
+			//初始化邮件信息；
+			$this->mailer_initialize();
+		}
 		$this->valueMake = new SDK\ValueMake\ValueMake($this->curl, $this->conf['vm']);
 		$this->adinall = new SDK\Adinall\Adinall($this->curl, $this->conf['adinall']);
 		$this->bes = new SDK\BaiDuBES\BaiDuBES($this->curl, $this->conf['bes']);
@@ -111,16 +113,55 @@ class Mixer {
 		return $tmp;
 	}
 
-	public function getCreatives() {
-		$this->db->select(array('*'));
-		$this->db->from('diy_ad_task');
-		// $this->db->where('status',1);
-		$this->db->limit(20, 0);
-		// $this->db->get();
-		$count = $this->db->count_all('diy_ad_task');
-		var_dump($this->db->last_query());
-		var_dump($count);
-		// $query = $this->db->array_result();
-		// var_dump($query);
+	private function getCreatives() {
+		$sql = 'SELECT `st`.`tanx_category`,`st`.`tanx_user_id`,`ad`.`id`,`ad`.`borad_url`,`ad`.`j_url`,`ad`.`pic_path`,`ad`.`pic_width`,`ad`.`pic_height`,`ad`.`borad_name`,`ad`.`gxb_monitor_url`,`dur`.`adx_id` FROM (SELECT `shop_id`,`tanx_category`,`tanx_user_id`,`shop_title` FROM `huihe_marketing_system`.`store` WHERE `tanx_audit_status`=1 AND `tanx_category`!=0 AND `tanx_user_id`!="") AS `st` INNER JOIN `huihe_marketing_system`.`diy_ad_task` AS `ad` ON `ad`.`shop_id`=`st`.`shop_id` AND `ad`.`status`=1 AND `ad`.`is_del`=0 AND `ad`.`add_time`>="2016-01-01" AND `ad`.`status`=1 AND `ad`.`tanx_audit_stat`=0 LEFT JOIN `huihe_marketing_system`.`diy_unit_rules` AS `dur` ON `dur`.`unit_id`=`ad`.`unit_id`';
+		$query = $this->db->query($sql);
+		$result = $query->fetch_all(MYSQLI_ASSOC);
+		return isset($result) && !empty($result) && is_array($result) ? $result : array();
+		// $this->db->select($select);
+		// $this->db->from($from);
+		// $this->db->where($where);
+		// $this->db->join('diy_unit_rules','`diy_unit_rules`.`unit_id`=`'.$from.'`.`unit_id`','left');
+		// $this->db->limit($num, $offset);
+		// $query = $this->db->get();
+		// $count = 0;
+		// // $count = $this->db->count_all('diy_ad_task');
+		// var_dump($this->db->last_query());
+		// // var_dump($count);
+		// return $query->array_result();
+	}
+
+	public function addCreatives(){
+		//diy_unit_rules	保存规则库
+		//unit_id			推广组id
+		//adx_id			adx平台类型，(1:灵集; 2:BES; 3:TANX; 4:天卓电信; 5:Adinall;6:万流客)
+		$result = $this->getCreatives();
+		$this->distributionCreatives($result);
+	}
+
+	private function distributionCreatives($creatives){
+		for ($i=0; $i < count($creatives); $i++) { 
+			var_dump($creatives[$i]);
+			// switch($creatives[$i]['']){
+			// 	case 1:		//Lingji
+			// 		$this->miaozhen;
+			// 	break;
+			// 	case 2:		//BES
+			// 		$this->bes;
+			// 	break;
+			// 	case 3:		//Tanx
+			// 		$this->tanx;
+			// 	break;
+			// 	case 4:		//ValueMake
+			// 		$this->valueMake;
+			// 	break;
+			// 	case 5:		//Adinall
+			// 		$this->adinall;
+			// 	break;
+			// 	default:	//Other
+			// 		var_dump('other');
+			// 	break;
+			// }
+		}
 	}
 }

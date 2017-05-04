@@ -24,10 +24,12 @@ class Client extends Mixer {
 	}
 }
 
-$Client = new Client($config);
+$client = new Client($config);
 
-$msg = $Client->get_version();
+// $msg = $client->get_version();
 
 // $Client->getCreatives();
 
-$Client->send_mailer($msg);
+$client->addCreatives();
+
+// $Client->send_mailer($msg);

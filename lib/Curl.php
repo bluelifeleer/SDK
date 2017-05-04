@@ -20,6 +20,14 @@ class Curl {
 		$this->curl = curl_init();
 	}
 
+	public function __get($k){
+		return isset($this->$k) ? $this->$k: null;
+	}
+
+	public function __set($k,$v){
+		$this->$k = $v;
+	}
+
 	public function get() {
 
 		// var_dump($header);

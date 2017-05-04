@@ -13,6 +13,8 @@
  * Mailer Configtions
  */
 $config['mailer'] = [
+	// 运行时是否发送邮件
+	'send_mailer' => false,
 	// Specify main and backup SMTP servers
 	'host' => 'smtp.qq.com',
 	// SMTP username

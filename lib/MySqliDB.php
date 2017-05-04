@@ -12,17 +12,20 @@ class MySqliDB extends mysqli {
 	private $data;
 	private $where;
 	private $table;
+	private $db_name;
 	private $select;
 	private $from;
 	private $like;
 	private $limit;
 	private $update;
 	private $insert;
+	private $join;
 	private $sql;
 	private $result;
 	private $status;
 
 	public function __construct($host, $user, $passwd, $db_name, $port) {
+		$this->db_name = $db_name;
 		//初始化并连接数据库
 		parent::__construct($host, $user, $passwd, $db_name, $port);
 		//检测并设置数据库的字符编码为'utf-8'
@@ -64,7 +67,7 @@ class MySqliDB extends mysqli {
 	 * 设置from语句
 	 */
 	public function from($table) {
-		$this->from = ' FROM ' . $table;
+		$this->from = ' FROM `' . $this->db_name.'`.`'.$table.'`';
 	}
 
 	/**
@@ -75,7 +78,7 @@ class MySqliDB extends mysqli {
 		if (func_num_args() == 2) {
 			$this->where = ' WHERE ' . func_get_arg(0) . '=' . func_get_arg(1);
 		} else {
-			$tmp = '';
+			$tmp = ' WHERE ';
 			foreach (func_get_arg(0) AS $key => $value) {
 				$tmp .= sprintf('%s=%s,', $key, $value);
 			}
@@ -156,9 +159,10 @@ class MySqliDB extends mysqli {
 	 * @return [type] [description]
 	 */
 	public function get() {
-		$this->sql = trim($this->select . $this->from . (isset($this->where) && !empty($this->where) ? $this->where : '') . $this->limit);
+		$this->sql = trim($this->select . $this->from . (isset($this->where) && !empty($this->where) ? $this->where : '') . $this->join . $this->limit);
 		// var_dump($this->sql);
 		$this->result = self::query($this->sql);
+		return $this;
 	}
 
 	/**
@@ -194,9 +198,13 @@ class MySqliDB extends mysqli {
 	}
 
 	public function count_all($table){
-		$this->sql = 'SELECT COUNT(*) FROM '. $table . $this->where;
+		$this->sql = 'SELECT COUNT(*) FROM `'. $this->db_name.'`.`'.$table .'`'. $this->where;
 		$this->result = self::query($this->sql);
 		return intval($this->result->fetch_assoc()['COUNT(*)']);
+	}
+
+	public function join($table,$where,$type = 'left'){
+		$this->join = ' ' . strtoupper($type) . ' JOIN `'. $this->db_name.'`.`'.$table . '` ON ' .$where;
 	}
 
 	/**
