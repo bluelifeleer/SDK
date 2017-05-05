@@ -12,6 +12,7 @@ namespace SDK\ValueMake;
  */
 class ValueMake {
 	private $curl;
+	private $db;
 	private $conf;
 	private $id;
 	private $width;
@@ -39,7 +40,8 @@ class ValueMake {
 	private $http;
 	private $header;
 	private $vmtype;
-	public function __construct($curl, $conf) {
+	public function __construct($db, $curl, $conf) {
+		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
 		$this->header = array('Authorization: Basic ' . base64_encode($this->conf['user_name'] . ':' . $this->conf['passwd']));
@@ -605,6 +607,10 @@ class ValueMake {
 			);
 			break;
 		}
+	}
+
+	public function main($data){
+		var_dump($data);
 	}
 
 	public function exec() {

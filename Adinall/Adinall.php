@@ -12,6 +12,7 @@ namespace SDK\Adinall;
 class Adinall {
 	private $conf;
 	private $curl;
+	private $db;
 	private $header;
 	private $http;
 	private $id;
@@ -34,7 +35,8 @@ class Adinall {
 	private $date;
 	private $request;
 	private $data = [];
-	public function __construct($curl, $conf) {
+	public function __construct($db, $curl, $conf) {
+		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
 	}
@@ -290,6 +292,10 @@ class Adinall {
 			);
 		}
 
+	}
+
+	public function main($data){
+		var_dump($data);
 	}
 
 	/**

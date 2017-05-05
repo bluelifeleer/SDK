@@ -12,6 +12,7 @@ namespace SDK\MiaoZhen;
  */
 class MiaoZhen {
 	private $curl;
+	private $db;
 	private $conf;
 	private $http;
 	private $header;
@@ -67,7 +68,8 @@ class MiaoZhen {
 	private $reportType;
 	private $date;
 
-	public function __construct($curl, $conf) {
+	public function __construct($db, $curl, $conf) {
+		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
 		$this->header = array('Content-type:application/json');
@@ -642,6 +644,10 @@ class MiaoZhen {
 			$this->data['date'] = isset($this->date) && !empty($this->date) ? $this->date : date('Y-m-d', strtotime("-1 day"));
 
 		}
+	}
+
+	public function main($data){
+		var_dump($data);
 	}
 
 	public function exec() {

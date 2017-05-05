@@ -17,6 +17,7 @@ class BaiDuBES {
 	private $response;
 	private $data;
 	private $curl;
+	private $db;
 	private $conf;
 	private $advertiserId;
 	private $advertiserLiteName;
@@ -52,7 +53,8 @@ class BaiDuBES {
 	private $domain;
 	private $playTimeMonitorUrl;
 
-	public function __construct($curl, $conf) {
+	public function __construct($db, $curl, $conf) {
+		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
 	}
@@ -614,5 +616,9 @@ class BaiDuBES {
 			'duration' => $this->duration, // 创意时长,当adviewType 为3 时，该字段必填；广告的播放时长，单位是s,[false]
 			'playTimeMonitorUrl' => $this->playTimeMonitorUrl, // 播放时间监测,即使是adviewType 为3，该字段也非必填；视频广告的播放时间监测。在视频广告播放的最后一秒请求，BES会在监测的后面添加播放完成的时间，单位是s。如http://dsp.com/……&pt=10长度限制：1024 个字节,[false]
 		);
+	}
+
+	public function main($data){
+		var_dump($data);
 	}
 }

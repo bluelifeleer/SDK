@@ -11,10 +11,16 @@ namespace SDK\Tanx;
  * |-----------------------------------------------------------------------------
  */
 class Tanx {
+	private $db;
 	private $curl;
 	private $conf;
-	public function __construct($curl, $conf) {
+	public function __construct($db, $curl, $conf) {
+		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
+	}
+
+	public function main($data){
+		var_dump($data);
 	}
 }
