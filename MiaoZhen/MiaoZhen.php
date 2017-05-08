@@ -498,9 +498,9 @@ class MiaoZhen {
 	}
 
 	public function formatData() {
+		$this->data['creativeType'] = $this->creativeType;
 		switch (intval($this->creativeType)) {
 		case 2: // 普通信息流
-			$this->data['creativeType'] = string($this->creativeType);
 			$this->data['natived'] = array(
 				'creativeId' => $this->creativeId,
 				'category' => array(),
@@ -519,7 +519,6 @@ class MiaoZhen {
 			);
 			break;
 		case 3: // 普通博文
-			$this->data['creativeType'] = string($this->creativeType);
 			$this->data['wax_feed'] = array(
 				'creativeId' => $this->creativeId,
 				'category' => array(),
@@ -534,7 +533,6 @@ class MiaoZhen {
 			);
 			break;
 		case 4: // 微博品牌大Card
-			$this->data['creativeType'] = string($this->creativeType);
 			$this->data['wax_feed_activity'] = array(
 				'creativeId' => $this->creativeId,
 				'pics' => $this->pics,
@@ -554,7 +552,6 @@ class MiaoZhen {
 			);
 			break;
 		case 5: // 搜狐素材
-			$this->data['creativeType'] = string($this->creativeType);
 			$this->data['sohu'] = array(
 				'creativeId' => $this->creativeId,
 				'category' => array(),
@@ -576,7 +573,6 @@ class MiaoZhen {
 			);
 			break;
 		default: // 普通物料banner或video
-			$this->data['creativeType'] = string($this->creativeType);
 			$this->data['material'] = array(
 				'creativeId' => $this->creativeId,
 				'category' => array(),
@@ -595,6 +591,8 @@ class MiaoZhen {
 			);
 			break;
 		}
+
+		var_dump($this->data);
 	}
 
 	/**
@@ -647,7 +645,38 @@ class MiaoZhen {
 	}
 
 	public function main($data){
-		var_dump($data);
+		$creativeType = 1;
+		$this->creativeId($data['id']);
+		$this->advertiser($data['shop_title']);
+		$this->startdate($data['add_time']);
+		$tmpStart = substr($data['add_time'],0,4);
+		$tmpEnt = substr($data['add_time'],4,intval(strlen($data['add_time'])-1));
+		$this->enddate(($tmpStart+1).$tmpEnt);
+		switch($creativeType){
+			case 2: // 2.普通信息流
+			break;
+			case 3:	// 3.普通博文
+			break;
+			case 4:	// 4.微博品牌大Card
+			break;
+			case 5:	//  5.搜狐素材
+			break;
+			default:	// 1.普通物料banner或video
+				$this->creativeType(1);
+				$this->url('https://images.ztcadx.com/img/board/'.$data['pic_path']);
+				$this->width($data['pic_width']);
+				$this->height($data['pic_height']);
+				$this->duration(0);
+				$this->landingpage(str_ireplace('http://jump.ztcadx.com', 'https://jump.ztcadx.com', $data['j_url']));
+				$this->deeplinkurl(str_ireplace('http://jump.ztcadx.com', 'https://jump.ztcadx.com', $data['j_url']));
+				if(isset($data['gxb_monitor_url']) || !empty($data['gxb_monitor_url']) || $data['gxb_monitor_url'] != null || $data['gxb_monitor_url'] != ''){
+					$this->monitor($data['gxb_monitor_url']);
+				}
+				$this->type(explode('.',$data['pic_path'])[1]);
+				$this->action('1');
+			break;
+		}
+		$this->formatData();
 	}
 
 	public function exec() {

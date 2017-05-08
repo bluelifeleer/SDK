@@ -30,7 +30,7 @@ class Autoloader {
 			$file = str_replace('\\', DIRECTORY_SEPARATOR, $file);
 			if (is_file($file)) {
 				include_once $file;
-				echo 'loadered ' . $file . PHP_EOL;
+				echo 'loaded file ' . $file . PHP_EOL;
 				break;
 			}
 		}

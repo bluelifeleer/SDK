@@ -1,6 +1,13 @@
 <?php
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/Mixer.php';
+$request_file_list = array('config.php','Mixer.php');
+foreach ($request_file_list as $key => $value) {
+	$file_path =  __DIR__ . DIRECTORY_SEPARATOR . $value;
+	if(is_file($file_path)){
+		require_once $file_path;
+		echo 'loaded file '.$file_path.PHP_EOL;
+	}
+}
+
 /**
  * |-----------------------------------------------------------------------------
  * | Client Class
@@ -10,7 +17,7 @@ require_once __DIR__ . '/Mixer.php';
  * | Date 2016-12-19
  * |-----------------------------------------------------------------------------
  */
-class Client extends Mixer {
+class client extends Mixer {
 	public function __construct($config) {
 		parent::__construct($config);
 	}

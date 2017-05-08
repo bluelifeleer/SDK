@@ -584,41 +584,123 @@ class BaiDuBES {
 	 * @return [type] [description]
 	 */
 	public function foramtData($type = 'advertisers') {
-		$this->data = $type == 'advertisers' ? array( //上传广告主
-			'advertiserId' => $this->advertiserId,
-			'advertiserLiteName' => $this->advertiserLiteName,
-			'dvertiserName' => $this->dvertiserName,
-			'siteName' => $this->siteName,
-			'siteUrl' => $this->siteUrl,
-			'telephone' => $this->telephone,
-			'address' => $this->address,
-		) : array( //上传创意
-			'creativeId' => $this->creativeId, //创意id，[true]
-			'adviewType' => $this->adviewType, //流量类型,1：Web 流量2：Mobile 流量3：Video 流量,[false]
-			'type' => $this->type, //创意类型,当adviewType 为2 时，该字段只能为1；当adviewType 为3时，该字段只能为3；1：图片2：flash3：视频,[true]
-			'creativeUrl' => $this->creativeUrl, //创意URL,[false]
-			'binaryData' => $this->binaryData, //创意二进制数据,大小限制：图片、flash 不大于150k当不存在creativeUrl 时，则选择使用binaryData [false]来上传创意，二者必须存在其一。binaryData 的处理优先级高于creativeUrl。[false]
-			'targetUrl' => $this->targetUrl, // 点击链接当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；,[false]
-			'landingPage' => $this->landingPage, //到达页面,当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；长度限制：2048 个字节,[false]
-			'monitorUrls' => array($this->monitorUrls), // 广告展现监测链,最多包含3 个链接每个链接长度限制：1024 个字节接数组,[true]
-			'height' => $this->height, // 创意高,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
-			'width' => $this->width, // 创意宽,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
-			'creativeTradeId' => $this->creativeTradeId, //	创意所属广告行业,注：必须指定到第2 级行业。广告行业体系见数据字典,[true]
-			'advertiserId' => $this->advertiserId, // 广告主id,[true]
-			'frameAgreementNo' => $this->frameAgreementNo, // 框架id,此处的框架id 指广告主与百度签署的框架协议id。如果广告主给出框架id 并且要求将在百度的投放计入框架，那么在上传创意的时候需要填写此字段。,[false]
-			'interactiveStyle' => $this->interactiveStyle, // 互动样式,当adviewType 为2 时，该字段为必填；0：无1：电话直拨2：点击下载,[false]
-			'telNo' => $this->telNo, //	电话号码,当adviewType 为2 且interactiveStyle 为1 时，该字段为必填；电话号码须全为数字，如400 号、800 号、手机号、座机号等，例如,[false]
-			'downloadUrl' => $this->downloadUrl, //	下载包地址,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：2048 个字节,[false]
-			'appName' => $this->appName, //	应用名称,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于28 个字符,[false]
-			'appDesc' => $this->appDesc, //	应用介绍,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于60 个字符,[false]
-			'appPackageSize' => $this->appPackageSize, //	应用大小,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；单位：MB,[false]
-			'dataRate' => $this->dataRate, // 码流，当adviewType 为3 时，该字段必填；视频广告的码流，单位是Kbps,[false]
-			'duration' => $this->duration, // 创意时长,当adviewType 为3 时，该字段必填；广告的播放时长，单位是s,[false]
-			'playTimeMonitorUrl' => $this->playTimeMonitorUrl, // 播放时间监测,即使是adviewType 为3，该字段也非必填；视频广告的播放时间监测。在视频广告播放的最后一秒请求，BES会在监测的后面添加播放完成的时间，单位是s。如http://dsp.com/……&pt=10长度限制：1024 个字节,[false]
-		);
+		if($type == 'advertisers'){
+			$this->data['advertiserId'] = $this->advertiserId;
+			$this->data['advertiserLiteName'] = $this->advertiserLiteName;
+			$this->data['dvertiserName'] = $this->dvertiserName;
+			$this->data['siteName'] = $this->siteName;
+			$this->data['siteUrl'] = $this->siteUrl;
+			$this->data['telephone'] = $this->telephone;
+			$this->data['address'] = $this->address;
+		}else{
+			$this->data['creativeId'] = $this->creativeId;											//创意id，[true]
+			$this->data['adviewType'] = $this->adviewType;											//流量类型,1：Web 流量2：Mobile 流量3：Video 流量,[false]
+			$this->data['type'] = $this->type;																	//创意类型,当adviewType 为2 时，该字段只能为1；当adviewType 为3时，该字段只能为3；1：图片2：flash3：视频,[true]
+			$this->data['creativeUrl'] = $this->creativeUrl;										//创意URL,[false]
+			if(isset($this->binaryDat) && !empty($this->binaryDat)){
+				$this->data['binaryData'] = $this->binaryDat;											//创意二进制数据,大小限制：图片、flash 不大于150k当不存在creativeUrl 时，则选择使用binaryData [false]来上传创意，二者必须存在其一。binaryData 的处理优先级高于creativeUrl。[false]
+			}
+			if(isset($this->targetUrl) && !empty($this->targetUrl)){
+				$this->data['targetUrl'] = $this->targetUrl;											// 点击链接当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；,[false]
+			}
+			if(isset($this->landingPage) && !empty($this->landingPage)){
+				$this->data['landingPage'] = $this->landingPage;									//到达页面,当adviewType 为2 时，且创意尺寸为640*960、480*800 时，该字段为非必填，其余情况下为必填；长度限制：2048 个字节,[false]
+			}
+			if(isset($this->monitorUrls) && !empty($this->monitorUrls)){
+				$this->data['monitorUrls'] = explode(',',$this->monitorUrls);			// 广告展现监测链,最多包含3 个链接每个链接长度限制：1024 个字节接数组,[true]
+			}
+			if(isset($this->height) && !empty($this->height)){
+				$this->data['height'] = $this->height;														// 创意高,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
+			}
+			if(isset($this->width) && !empty($this->width)){
+				$this->data['width'] = $this->width;															// 创意宽,当adviewType 为1 时：见web流量创意尺寸补充说明；当adviewType 为2 时： 见mobile 流量创意尺寸补充说明；当adviewType 为3 时：见video流量创意尺寸补充说明；,[true]
+			}
+			if(isset($this->creativeTradeId) && !empty($this->creativeTradeId)){
+				$this->data['creativeTradeId'] = $this->creativeTradeId;					//	创意所属广告行业,注：必须指定到第2 级行业。广告行业体系见数据字典,[true]
+			}
+			if(isset($this->advertiserId) && !empty($this->advertiserId)){
+				$this->data['advertiserId'] = $this->advertiserId;								// 广告主id,[true]
+			}
+			if(isset($this->frameAgreementNo) && !empty($this->frameAgreementNo)){
+				$this->data['frameAgreementNo'] = $this->frameAgreementNo;				// 框架id,此处的框架id 指广告主与百度签署的框架协议id。如果广告主给出框架id 并且要求将在百度的投放计入框架，那么在上传创意的时候需要填写此字段。,[false]
+			}
+			if(isset($this->interactiveStyle) && !empty($this->interactiveStyle)){
+				$this->data['interactiveStyle'] = $this->interactiveStyle;				// 互动样式,当adviewType 为2 时，该字段为必填；0：无1：电话直拨2：点击下载,[false]
+			}
+			if(isset($this->telNo) && !empty($this->telNo)){
+				$this->data['telNo'] = $this->telNo;															//	电话号码,当adviewType 为2 且interactiveStyle 为1 时，该字段为必填；电话号码须全为数字，如400 号、800 号、手机号、座机号等，例如,[false]
+			}
+			if(isset($this->downloadUrl) && !empty($this->downloadUrl)){
+				$this->data['downloadUrl'] = $this->downloadUrl;									//	下载包地址,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：2048 个字节,[false]
+			}
+			if(isset($this->appName) && !empty($this->appName)){
+				$this->data['appName'] = $this->appName;													//	应用名称,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于28 个字符,[false]
+			}
+			if(isset($this->appDesc) && !empty($this->appDesc)){
+				$this->data['appDesc'] = $this->appDesc;													//	应用介绍,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；长度限制：小于60 个字符,[false]
+			}
+			if(isset($this->appPackageSize) && !empty($this->appPackageSize)){
+				$this->data['appPackageSize'] = $this->appPackageSize;						//	应用大小,当adviewType 为2 且interactiveStyle 为2 时，该字段为必填；单位：MB,[false]
+			}
+			if(isset($this->dataRate) && !empty($this->dataRate)){
+				$this->data['dataRate'] = $this->dataRate;												// 码流，当adviewType 为3 时，该字段必填；视频广告的码流，单位是Kbps,[false]
+			}
+			if(isset($this->duration) && !empty($this->duration)){
+				$this->data['duration'] = $this->duration;												// 创意时长,当adviewType 为3 时，该字段必填；广告的播放时长，单位是s,[false]
+			}
+			if(isset($this->playTimeMonitorUrl) && !empty($this->playTimeMonitorUrl)){
+				$this->data['playTimeMonitorUrl'] = $this->playTimeMonitorUrl;		// 播放时间监测,即使是adviewType 为3，该字段也非必填；视频广告的播放时间监测。在视频广告播放的最后一秒请求，BES会在监测的后面添加播放完成的时间，单位是s。如http://dsp.com/……&pt=10长度限制：1024 个字节,[false]
+			}
+		}
+
+		var_dump($this->data);
+
 	}
 
-	public function main($data){
-		var_dump($data);
+	public function main($data,$actionType = 'advertisers'){
+		if($actionType == 'advertisers'){
+			$this->advertiserId($data['advertiser_id']);
+			$this->advertiserLiteName($data['advertiser_lite_name']);
+			$this->advertiserName($data['advertiser_name']);
+			$this->siteName($data['site_name']);
+			$this->siteUrl($data['site_url']);
+			$this->telephone($data['telephone']);
+			$this->address($data['address']);
+		}else{
+			$this->creativeId($data['id']);
+			$this->adviewType($data['adview_type']);
+			$this->creativeUrl('https://images.ztcadx.com/img/board/'.$data['pic_path']);
+			$this->targetUrl($data['borad_url']);
+			$this->landingPage($data['j_url']);
+			if(explode('.',$data['pic_path'])[1] == 'png'){
+				$this->binaryData($data['binary_data']);
+			}
+			if(intval($data['adview_type']) == 2){
+				$this->type(1);
+				$this->interactiveStyle($data['interactive_style']);
+				if(intval($data['interactive_style']) == 1){
+					$this->telNo($data['tel_no']);
+				}elseif(intval($data['interactive_style']) == 2){
+					$this->downloadUrl($data['download_url']);
+					$this->appName($data['app_name']);
+					$this->appDesc($data['app_desc']);
+					$this->appPackageSize($data['app_package_size']);
+				}
+			}else{
+				$this->type($data['type']);
+			}
+			if(intval($data['adview_type']) == 3){
+				$this->dataRate($data['data_rate']);
+				$this->duration($data['duration']);
+				$this->playTimeMonitorUrl($data['play_time_monitor_url_type']);
+			}
+			$this->monitorUrls($data['monitor_urls']);
+			$this->height($data['pic_width']);
+			$this->width($data['pic_height']);
+			$this->creativeTradeId($data['bes_industry_code']);
+			$this->advertiserId($data['shop_id']);
+			//$this->frameAgreementNo();
+		}
+		$this->foramtData($actionType);
 	}
 }

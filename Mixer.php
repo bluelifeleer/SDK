@@ -1,7 +1,8 @@
 <?php
-$file = str_replace('\\', DIRECTORY_SEPARATOR, __DIR__ . DIRECTORY_SEPARATOR) . 'Autoloader.php';
+$file = __DIR__ . DIRECTORY_SEPARATOR . 'Autoloader.php';
 if (is_file($file)) {
 	require_once $file;
+	echo 'loaded file '.$file.PHP_EOL;
 }
 // require_once __DIR__ . '\Mailer\PHPMailerAutoload.php';
 // use SDK\ValueMake;
@@ -114,9 +115,9 @@ class Mixer {
 	}
 
 	private function getCreatives() {
-		$sql = 'SELECT `st`.`tanx_category`,`st`.`tanx_user_id`,`ad`.`id`,`ad`.`borad_url`,`ad`.`j_url`,`ad`.`pic_path`,`ad`.`pic_width`,`ad`.`pic_height`,`ad`.`borad_name`,`ad`.`gxb_monitor_url`,`dur`.`adx_id` FROM (SELECT `shop_id`,`tanx_category`,`tanx_user_id`,`shop_title` FROM `huihe_marketing_system`.`store` WHERE `tanx_audit_status`=1 AND `tanx_category`!=0 AND `tanx_user_id`!="") AS `st` INNER JOIN `huihe_marketing_system`.`diy_ad_task` AS `ad` ON `ad`.`shop_id`=`st`.`shop_id` AND `ad`.`status`=1 AND `ad`.`is_del`=0 AND `ad`.`add_time`>="2016-01-01" AND `ad`.`status`=1 AND `ad`.`tanx_audit_stat`=0 LEFT JOIN `huihe_marketing_system`.`diy_unit_rules` AS `dur` ON `dur`.`unit_id`=`ad`.`unit_id`';
-
-		echo $sql;
+		$start_timer = date('Y-m-d 00:00:00',time());
+		$current_timer = date('Y-m-d H:i:s',time());
+		$sql = 'SELECT `st`.`tanx_category`,`st`.`bes_industry_code`,`st`.`tanx_user_id`,`st`.`shop_title`,`ad`.`id`,`ad`.`borad_url`,`ad`.`j_url`,`ad`.`pic_path`,`ad`.`pic_width`,`ad`.`pic_height`,`ad`.`borad_name`,`ad`.`gxb_monitor_url`,`ad`.`add_time`,`ad`.`shop_id`,`dur`.`unit_id`,`dur`.`adx_id`,`dur`.`rules`,`dur`.`range_mode`,`dur`.`cpc` FROM (SELECT `shop_id`,`tanx_category`,`tanx_user_id`,`shop_title`,`bes_industry_code` FROM `huihe_marketing_system`.`store` WHERE `tanx_audit_status`=1 AND `tanx_category`!=0 AND `tanx_user_id`!="") AS `st` INNER JOIN `huihe_marketing_system`.`diy_ad_task` AS `ad` ON `ad`.`shop_id`=`st`.`shop_id` AND `ad`.`status`=1 AND `ad`.`is_del`=0 AND (`ad`.`add_time` BETWEEN "2017-01-01 00:00:00" AND "'.$current_timer.'") AND `ad`.`tanx_audit_stat`=0 LEFT JOIN `huihe_marketing_system`.`diy_unit_rules` AS `dur` ON `dur`.`unit_id`=`ad`.`unit_id`';
 
 		$query = $this->db->query($sql);
 		$result = $query ? $query->fetch_all(MYSQLI_ASSOC) : false ;
@@ -132,8 +133,6 @@ class Mixer {
 		//unit_id			推广组id
 		//adx_id			adx平台类型，(1:灵集; 2:BES; 3:TANX; 4:天卓电信; 5:Adinall;6:万流客)
 		$result = $this->getCreatives();
-		var_dump($result);
-		exit;
 		if(isset($result) && is_array($result) && !empty($result)){
 			$this->distributionCreatives($result);
 		}
@@ -146,28 +145,49 @@ class Mixer {
 	 */
 	private function distributionCreatives($creatives){
 		if(isset($creatives) && is_array($creatives) && !empty($creatives)){
-			for ($i=0; $i < count($creatives); $i++) { 
+			for ($i=0; $i < count($creatives); $i++) {
 				$adx_id = $creatives[$i]['adx_id'] && isset($creatives[$i]['adx_id']) && !empty($creatives[$i]['adx_id']) ? intval($creatives[$i]['adx_id']) : 3 ;
-				switch($adx_id){
-					case 1:		//Lingji
-						$this->miaozhen->main($creatives[$i]);
-					break;
-					case 2:		//BES
-						$this->bes->main($creatives[$i]);
-					break;
-					case 3:		//Tanx
-						$this->tanx->main($creatives[$i]);
-					break;
-					case 4:		//ValueMake
-						$this->valueMake->main($creatives[$i]);
-					break;
-					case 5:		//Adinall
-						$this->adinall->main($creatives[$i]);
-					break;
-					default:	//Other
-						var_dump('other');
-					break;
-				}
+				// $this->miaozhen->main($creatives[$i]);
+				$creatives[$i]['adview_type'] = 1;
+				$creatives[$i]['type'] = 1;
+				$creatives[$i]['binary_data'] = '';
+				$creatives[$i]['target_url'] = '';
+				$creatives[$i]['landing_page'] = '';
+				$creatives[$i]['interactive_style'] = '';
+				$creatives[$i]['pic_width'] = 240;
+				$creatives[$i]['pic_height'] = 350;
+				$creatives[$i]['tel_no'] = '';
+				$creatives[$i]['download_url'] = '';
+				$creatives[$i]['app_name'] = '';
+				$creatives[$i]['app_desc'] = '';
+				$creatives[$i]['app_package_size'] = '';
+				$creatives[$i]['data_rate'] = '';
+				$creatives[$i]['duration'] = '';
+				$creatives[$i]['play_time_monitor_url_type'] = '';
+				$creatives[$i]['monitor_urls'] = '';
+				$this->bes->main($creatives[$i],'creative');
+				// switch($adx_id){
+				// 	case 1:		//Lingji
+				// 		$this->miaozhen->main($creatives[$i]);
+				// 	break;
+				// 	case 2:		//BES
+				// 		$this->bes->main($creatives[$i]);
+				// 	break;
+				// 	case 3:		//Tanx
+				// 		$this->tanx->main($creatives[$i]);
+				// 	break;
+				// 	case 4:	//	4:天卓电信
+				// 	break;
+				// 	case 5:		//Adinall
+				// 		$this->adinall->main($creatives[$i]);
+				// 	break;
+				// 	case 6:		//ValueMake
+				// 		$this->valueMake->main($creatives[$i]);
+				// 	break;
+				// 	default:	//Other
+				// 		var_dump('other');
+				// 	break;
+				// }
 			}
 		}
 	}
