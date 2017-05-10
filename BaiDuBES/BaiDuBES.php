@@ -702,5 +702,7 @@ class BaiDuBES {
 			//$this->frameAgreementNo();
 		}
 		$this->foramtData($actionType);
+		// $response = $this->exec();
+		// return $response || !empty($response) || $response != '' || $response != null ? json_decode($response,true) : array() ; 
 	}
 }

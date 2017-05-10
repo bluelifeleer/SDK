@@ -677,6 +677,8 @@ class MiaoZhen {
 			break;
 		}
 		$this->formatData();
+		// $response = $this->exec();
+		// return $response || !empty($response) || $response != '' || $response != null ? json_decode($response,true) : array() ; 
 	}
 
 	public function exec() {

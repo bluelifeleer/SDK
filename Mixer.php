@@ -165,7 +165,8 @@ class Mixer {
 				$creatives[$i]['duration'] = '';
 				$creatives[$i]['play_time_monitor_url_type'] = '';
 				$creatives[$i]['monitor_urls'] = '';
-				$this->bes->main($creatives[$i],'creative');
+				$creatives[$i]['category'] = '123';
+				$this->adinall->main($creatives[$i],'creative');
 				// switch($adx_id){
 				// 	case 1:		//Lingji
 				// 		$this->miaozhen->main($creatives[$i]);

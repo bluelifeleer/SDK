@@ -439,178 +439,112 @@ class ValueMake {
 	 * @return [type] [description]
 	 */
 	public function formatData() {
-		switch ($this->vmtype) {
-		case 'pc_update':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
-				'adomain_list' => $this->adomain_list,
-			);
-			break;
-		case 'mobile_wap_add':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
-				'adomain_list' => $this->adomain_list,
-				'advertiser' => $this->advertiser,
-			);
-			break;
-		case 'mobile_wap_update':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
-				'adomain_list' => $this->adomain_list,
-				'advertiser' => $this->advertiser,
-			);
-			break;
-		case 'mobile_app_add':
-			$this->data = array(
-				'id' => $this->id,
-				'landingpage' => $this->landingpage,
-				'width' => $this->width,
-				'height' => $this->height,
-				'adtype' => $thi->adtype,
-				'format' => $this->format,
-				'category' => $this->category,
-				'adomain_list' => $this->adomain_list,
-				'pic_urls' => $this->pic_urls,
-				'title' => $this->title,
-				'text' => $this->text,
-				'advertiser' => $this->advertiser,
-			);
-			break;
-		case 'mobile_app_update':
-			$this->data = array(
-				'id' => $this->id,
-				'landingpage' => $this->landingpage,
-				'width' => $this->width,
-				'height' => $this->height,
-				'adtype' => $thi->adtype,
-				'format' => $this->format,
-				'category' => $this->category,
-				'adomain_list' => $this->adomain_list,
-				'pic_urls' => $this->pic_urls,
-				'title' => $this->title,
-				'text' => $this->text,
-				'advertiser' => $this->advertiser,
-			);
-			break;
-		case 'mobile_video_add':
-			$this->data = array(
-				'id' => $this->id,
-				'category' => $this->category,
-				'duration' => $this->duration,
-				'fileurl' => $this->file_url,
-				'landingpage' => $this->landingpage,
-				'adomain_list' => $this->adomain_list,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'advertiser' => $this->advertiser,
-				'creative_type' => $this->creative_type,
-			);
-			break;
-		case 'mobile_video_update':
-			$this->data = array(
-				'id' => $this->id,
-				'category' => $this->category,
-				'duration' => $this->duration,
-				'fileurl' => $this->file_url,
-				'landingpage' => $this->landingpage,
-				'adomain_list' => $this->adomain_list,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'advertiser' => $this->advertiser,
-				'creative_type' => $this->creative_type,
-			);
-			break;
-		case 'cpe_add':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'pic_url' => $this->pic_urls,
-				'adomain_list' => $this->adomain_list,
-				'landingpage' => $this->landingpage,
-				'visible_urls' => $this->visible_urls,
-				'cpe_info' => $this->cpe_info,
-			);
-			break;
-		case 'cpe_update':
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'pic_url' => $this->pic_urls,
-				'adomain_list' => $this->adomain_list,
-				'landingpage' => $this->landingpage,
-				'visible_urls' => $this->visible_urls,
-				'cpe_info' => $this->cpe_info,
-			);
-			break;
-		case 'pc_video_add':
-			$this->data = array(
-				'id' => $this->id,
-				'category' => $this->category,
-				'duration' => $this->duration,
-				'fileurl' => $this->fileurl,
-				'landingpage' => $this->landingpage,
-				'adomain_list' => $this->adomain_list,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'advertiser' => $this->advertiser,
-				'creative_type' => $this->creative_type,
-			);
-			break;
-		case 'pc_video_update':
-			$this->data = array(
-				'id' => $this->id,
-				'category' => $this->category,
-				'duration' => $this->duration,
-				'fileurl' => $this->fileurl,
-				'landingpage' => $this->landingpage,
-				'adomain_list' => $this->adomain_list,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'advertiser' => $this->advertiser,
-				'creative_type' => $this->creative_type,
-			);
-			break;
-		default: // pc_add
-			$this->data = array(
-				'id' => $this->id,
-				'width' => $this->width,
-				'height' => $this->height,
-				'format' => $this->format,
-				'category' => $this->category,
-				'html_snippet' => $this->html_snippet,
-				'adomain_list' => $this->adomain_list,
-			);
-			break;
+		$this->data['id'] = $this->id;
+		$this->data['width'] = $this->width;
+		$this->data['height'] = $this->height;
+		$this->data['format'] = $this->format;
+		$this->data['category'] = $this->category;
+		$this->data['html_snippet'] = $this->html_snippet;
+		$this->data['adomain_list'] = $this->adomain_list;
+		if(isset($this->advertiser) && !empty($this->advertiser)){
+			$this->data['advertiser'] = $this->advertiser;
+		}
+		if(isset($this->landingpage) && !empty($this->landingpage)){
+			$this->data['landingpage'] = $this->landingpage;
+		}
+		if(isset($this->adtype) && !empty($this->adtype)){
+			$this->data['adtype'] = $this->adtype;
+		}
+		if(isset($this->title) && !empty($this->title)){
+			$this->data['title'] = $this->title;
+		}
+		if(isset($this->text) && !empty($this->text)){
+			$this->data['text'] = $this->text;
+		}
+		if(isset($this->duration) && !empty($this->duration)){
+			$this->data['duration'] = $this->duration;
+		}
+		if(isset($this->fileurl) && !empty($this->fileurl)){
+			$this->data['fileurl'] = $this->fileurl;
+		}
+		if(isset($this->creative_type) && !empty($this->creative_type)){
+			$this->data['creative_type'] = $this->creative_type;
+		}
+		if(isset($this->visible_urls) && !empty($this->visible_urls)){
+			$this->data['visible_urls'] = $this->visible_urls;
+		}
+		if(isset($this->cpe_info) && !empty($this->cpe_info)){
+			$this->data['cpe_info'] = $this->cpe_info;
 		}
 	}
 
 	public function main($data){
-		var_dump($data);
+		$this->pcAdd();	//	默认上传PC创意
+		$this->id($data['id']);
+		$this->width($data['pic_width']);
+		$this->height($data['pic_height']);
+		$this->format($data['format']);
+		$this->category($data['category']);
+		$this->html_snippet('<a href="{!vam_click_url}{!dsp_click_url}'.$data['landingpage'].'" target="_blank"><img src="https://images.ztcadx.com/img/board/' . $data['pic_path'] .'" /></a><script type="text/javascript" charset="utf-8" src="{!dsp_show_url}"><\/script>');
+		$this->adomain_list($data['adomain_list']);
+		if($data['mv_type'] == 'mobile_wap_add' || $data['mv_type'] == 'mobile_wap_update'){	// Mobile Wep 
+			if($data['mv_type'] == 'mobile_wap_add'){
+				$this->mobileWapAdd();
+			}else{
+				$this->mobileWapUpdate();
+			}
+			$this->advertiser($data['shop_title']);
+		}elseif($data['mv_type'] == 'mobile_app_add' || $data['mv_type'] == 'mobile_app_update'){ //Mobile App
+			if($data['mv_type'] == 'mobile_app_add'){
+				$this->mobileInappAdd();
+			}else{
+				$this->mobileInappUpdate();
+			}
+			$this->id($data['id']);
+			$this->landingpage($data['landingpage']);
+			$this->adtype($data['adtype']);
+			$this->pic_urls('https://images.ztcadx.com/img/board/'.$data['pic_urls']);
+			$this->title($data['title']);
+			$this->text($data['text']);
+			$this->advertiser($data['shop_title']);
+		}elseif($data['mv_type'] == 'mobile_video_add' || $data['mv_type'] == 'mobile_video_update' || $data['mv_type'] == 'pc_video_add' || $data['mv_type'] == 'pc_video_update'){	//	Mobile video || PC Video
+			switch($data['mv_type']){
+				case 'mobile_video_add':
+					$this->mobileVideoAdd();
+				break;
+				case 'mobile_video_update':
+					$this->mobileVideoUpdate();
+				break;
+				case 'pc_video_update':
+					$this->pcVideoUpdate();
+				break;
+				default:
+					$this->pcVideoAdd();
+				break;
+			}
+			$this->duration($data['duration']);
+			$this->fileurl($data['fileurl']);
+			$this->landingpage($data['landingpage']);
+			$this->advertiser($data['shop_title']);
+			$this->creative_type($data['creative_type']);
+		}elseif($data['mv_type'] == 'cpe_add' || $data['mv_type'] == 'cpe_update'){		//	CPE 
+			if($data['mv_type'] == 'cpe_add'){
+				$this->CPEAdd();
+			}else{
+				$this->CPEUpdate();
+			}
+			$this->pic_url('https://images.ztcadx.com/img/board/'.$data['pic_urls']);
+			$this->landingpage($data['landingpage']);
+			$this->visible_urls($data['visible_urls']);
+			$this->cpe_info($data['cpe_info']);
+		}else{	// PC update
+			$this->pcUpdate();
+		}
+		// 格式化上传不同创意所需的参数
+		$this->formatData();
+		// 执行创意上传
+		// $response = $this->exec();
+		// return $response || !empty($response) || $response != '' || $response != null ? json_decode($response,true) : array() ; 
 	}
 
 	public function exec() {

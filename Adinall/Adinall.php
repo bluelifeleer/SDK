@@ -39,6 +39,10 @@ class Adinall {
 		$this->db = $db;
 		$this->curl = $curl;
 		$this->conf = $conf;
+		$this->id = $this->conf['id'];
+		$this->publicKey = $this->conf['publicKey'];
+		$this->signTime = time();
+		$this->token = md5($this->id.$this->publicKey.$this->signTime);
 	}
 
 	/**
@@ -203,6 +207,7 @@ class Adinall {
 			'dsptype' => $this->dsptype,
 			'data' => array($this->data),
 		);
+		var_dump($this->request);
 	}
 
 	/**
@@ -265,37 +270,62 @@ class Adinall {
 	 * @return [type] [description]
 	 */
 	public function formatData() {
-		if ($this->dsptype != 3) {
-//是PC/wap
-			$this->data = array(
-				'cid' => $this->cid,
-				'size' => $this->size,
-				'category' => $this->category,
-				'html' => $this->html,
-				'domain' => $this->domain,
-			);
-		} else {
-//app
-			$this->data = array(
-				'cid' => $this->cid,
-				'adtype' => $this->adtype,
-				'title' => $this->title,
-				'desc' => $this->description,
-				'ldp' => $this->ldp,
-				'size' => $this->size,
-				'imgurl' => $this->imgurl,
-				'category' => $this->category,
-				'impressionreport' => $this->impressionreport,
-				'clickreport' => $this->clickreport,
-				'html' => $this->html,
-				'domain' => $this->domain,
-			);
+		$this->data['cid'] = $this->cid;
+		$this->data['size'] = $this->size;
+		$this->data['category'] = $this->category;
+		$this->data['html'] = $this->html;
+		$this->data['domain'] = $this->domain;
+		if(isset($this->adtype) && !empty($this->adtype)){
+			$this->data['adtype'] = $this->adtype;
 		}
-
+		if(isset($this->title) && !empty($this->title)){
+			$this->data['title'] = $this->title;
+		}
+		if(isset($this->description) && !empty($this->description)){
+			$this->data['description'] = $this->description;
+		}
+		if(isset($this->ldp) && !empty($this->ldp)){
+			$this->data['ldp'] = $this->ldp;
+		}
+		if(isset($this->imgurl) && !empty($this->imgurl)){
+			$this->data['imgurl'] = $this->imgurl;
+		}
+		if(isset($this->impressionreport) && !empty($this->impressionreport)){
+			$this->data['impressionreport'] = $this->impressionreport;
+		}
+		if(isset($this->clickreport) && !empty($this->clickreport)){
+			$this->data['clickreport'] = $this->clickreport;
+		}
 	}
 
 	public function main($data){
-		var_dump($data);
+		$dsp_type = isset($data['dsp_type']) && !empty($data['dsp_type']) ? $data['dsp_type'] : 1;//默认pc
+		$this->dsptype($dsp_type);
+		$this->signTime(time());
+		if($dsp_type == 3){//上传app素材
+			$this->adtype($data['adtype']);
+			$this->impressionreport($data['']);
+			$this->clickreport($data['']);
+			if(intval($data['ad_type']) == 4){
+				$this->title($data['title']);
+				$this->description($data['description']);
+			}
+			$this->imgurl('https://images.ztcadx.com/img/board/'.$data['pic_path']);
+			$this->ldp($data['j_url']);
+		}
+		$this->cid($data['id']);
+		$this->size($data['pic_width'].'x'.$data['pic_height']);
+		$this->category($data['category']);
+		$this->html('<a href="%%AD_CLICK_URL%%'.$data['j_url'].'" target="_blank"><img src="https://images.ztcadx.com/img/board/'.$data['pic_path'].'" /></a><img src="https://stats.ztcadx.com/s.gif?price=%%AD_WIN_NOTICE%%" style="display:none" />');
+		$this->domain($data['borad_url']);
+		//格式化数据
+		$this->formatData();
+		//上传创意
+		$this->batchSync();
+
+		// $response = $this->exec();
+		// return $response || !empty($response) || $response != '' || $response != null ? json_decode($response,true) : array() ; 
+
 	}
 
 	/**
