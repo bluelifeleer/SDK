@@ -20,16 +20,14 @@ $config['mailer'] = [
 	// SMTP username
 	'user_name' => '703294267@qq.com',
 	// SMTP password
-	'password' => 'fqwjuuqxrrsfbfha',
+	'password' => '',
 	// TCP port to connect to
 	'port' => 25,
 	// send a mailer
 	'set_form' => ['703294267@qq.com', 'tuibian'],
 	// Add a recipient
 	'add_adderss' => [
-		['peng.li@koolbao.com', 'lipeng'],
-		['thebulelife@163.com', 'bluelife'],
-		['thebulelife@outlook.com', 'bluelife'],
+		
 	],
 	// 回复
 	'add_reply_to' => [],
@@ -45,10 +43,10 @@ $config['mailer'] = [
  * Database Configtions
  */
 $config['db'] = [
-	'host' => 'rm-bp161jfen84tpr7d2o.mysql.rds.aliyuncs.com',
-	'user' => 'huihex',
-	'passwd' => 'koolma2010',
-	'db_name' => 'huihe_marketing_system',
+	'host' => '',
+	'user' => '',
+	'passwd' => '',
+	'db_name' => '',
 	'port' => 3306,
 ];
 
@@ -82,8 +80,8 @@ $config['ver'] = [
  * Baidu BES configtions
  */
 $config['bes'] = [
-	'dspId' => '18010532',
-	'token' => 'c1cab1eb74dd83561cc042cd713b24d9',
+	'dspId' => '',
+	'token' => '',
 	'api_https' => [
 		'advertisers' => [
 			'add' => 'https://api.es.baidu.com/v1/advertiser/add',
@@ -120,8 +118,8 @@ $config['bes'] = [
  * Tanx configtions
  */
 $config['tanx'] = [
-	'appKey' => '23343680',
-	'appSecret' => '649898950e521f4a3834543c284d39bb',
+	'appKey' => '',
+	'appSecret' => '',
 	'tanx_http' => 'http://gw.api.taobao.com/router/rest',
 	'tanx_https' => 'https://eco.taobao.com/router/rest',
 	'tanx_http_tbsandbox' => 'http://gw.api.tbsandbox.com/router/rest',
@@ -156,8 +154,8 @@ $config['tanx'] = [
  * ValueMask configtions
  */
 $config['vm'] = [
-	'user_name' => 'vamaker-huihe',
-	'passwd' => 'ad3548dafHUIHEX2016',
+	'user_name' => '',
+	'passwd' => '',
 	'api_https' => [
 		'advertisers' => [],
 		'creatives' => [
@@ -203,8 +201,8 @@ $config['vm'] = [
  * Adinall configtions
  */
 $config['adinall'] = [
-	'id' => '71b239993210dee8bd76e00daa1676b7', // 聚告PMP 提供的dspid，由32 位字符串组成。
-	'publicKey' => 't4^d*#3%o561%8fx', // 聚告PMP 提供的密钥，16 位字符串组成。
+	'id' => '', // 聚告PMP 提供的dspid，由32 位字符串组成。
+	'publicKey' => '', // 聚告PMP 提供的密钥，16 位字符串组成。
 	'signTime' => '', // Unix timestamp 时间戳精确到秒，格式1463643640
 	'token' => '', // md5(id+publicKey+signTime)，注意字段md5 顺序
 	'apt_https' => [
@@ -223,8 +221,8 @@ $config['adinall'] = [
  * MZ configtions
  */
 $config['mz'] = [
-	'dspId' => '11187',
-	'token' => '0e700c48f8734900871b6593b146b41a',
+	'dspId' => '',
+	'token' => '',
 	'api_https' => [
 		'advertisers' => [],
 		'creatives' => [
